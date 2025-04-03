@@ -4,11 +4,19 @@
  */
 package entidades;
 
+import Enums.Estado;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -17,11 +25,42 @@ import javax.persistence.Id;
 @Entity
 public class Comanda implements Serializable {
 
+    //Atributos ----------------------------------------------------------------
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "folio",nullable = false,unique = true)
+    private String folio;
+    
+    @Column(name = "fechaHora",nullable = false)
+    private LocalDateTime fecha;
+    
+    @Column(name = "estado",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
+    
+    @Column(name = "total",nullable = false)
+    private double precio;
+    
+    
+    
+    
 
+    //Constructores ------------------------------------------------------------
+    public Comanda() {
+    }
+
+    public Comanda(String folio, LocalDateTime fecha, Estado estado, double precio) {
+        this.folio = folio;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.precio = precio;
+    }
+
+    
+    //Getters y Setters --------------------------------------------------------
     public Long getId() {
         return id;
     }
@@ -30,6 +69,41 @@ public class Comanda implements Serializable {
         this.id = id;
     }
 
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    
+
+    //Cosas que se generan solas -----------------------------------------------
     @Override
     public int hashCode() {
         int hash = 0;
@@ -50,9 +124,10 @@ public class Comanda implements Serializable {
         return true;
     }
 
+    // toString ----------------------------------------------------------------
     @Override
     public String toString() {
-        return "entidades.Comanda[ id=" + id + " ]";
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fecha=" + fecha + ", estado=" + estado + ", precio=" + precio + '}';
     }
     
 }

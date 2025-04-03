@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,11 +18,23 @@ import javax.persistence.Id;
 @Entity
 public class Mesa implements Serializable {
 
+    //Atributos ----------------------------------------------------------------
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "numeroMesa",nullable = false,unique = true)
+    private Integer numeroMesa;
+    
+    
+    //Constructor --------------------------------------------------------------
+    public Mesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+    
 
+    //Getters y Setters --------------------------------------------------------
     public Long getId() {
         return id;
     }
@@ -30,13 +43,23 @@ public class Mesa implements Serializable {
         this.id = id;
     }
 
+    public Integer getNumeroMesa() {
+        return numeroMesa;
+    }
+
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+    
+    
+    //Cosas que se generan solas -----------------------------------------------
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -50,9 +73,11 @@ public class Mesa implements Serializable {
         return true;
     }
 
+    // toString ----------------------------------------------------------------
     @Override
     public String toString() {
-        return "entidades.Mesa[ id=" + id + " ]";
+        return "Mesa{" + "id=" + id + ", numeroMesa=" + numeroMesa + '}';
     }
+    
     
 }

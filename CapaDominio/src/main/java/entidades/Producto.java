@@ -4,8 +4,12 @@
  */
 package entidades;
 
+import Enums.Tipo;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +21,52 @@ import javax.persistence.Id;
 @Entity
 public class Producto implements Serializable {
 
+    //Atributos ----------------------------------------------------------------
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "nombre",nullable = false,unique = true)
+    private String nombre;
+    
+    @Column(name = "precio",nullable = false)
+    private Integer precio;
+    
+    @Column(name = "tipo", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Tipo tipo;
+    
+    //Constructores ------------------------------------------------------------
 
+    public Producto() {
+    }
+
+    public Producto(String nombre, Integer precio, Tipo tipo) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipo = tipo;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Getters y Setters --------------------------------------------------------
     public Long getId() {
         return id;
     }
@@ -30,6 +75,42 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Integer precio) {
+        this.precio = precio;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    //Cosas que se generan solas -----------------------------------------------
     @Override
     public int hashCode() {
         int hash = 0;
@@ -49,10 +130,12 @@ public class Producto implements Serializable {
         }
         return true;
     }
+    
+    // toString ----------------------------------------------------------------
 
     @Override
     public String toString() {
-        return "entidades.Producto[ id=" + id + " ]";
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + '}';
     }
     
 }
