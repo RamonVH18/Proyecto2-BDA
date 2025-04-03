@@ -6,8 +6,10 @@ package entidades;
 
 import Enums.Estado;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,8 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -43,6 +44,14 @@ public class Comanda implements Serializable {
     
     @Column(name = "total",nullable = false)
     private double precio;
+    /**
+     * Mapeo de la relacion Uno a Muchos de Comanda y detalles de comanda
+     * Donde una comanda puede tener muchos detalles
+     * Pero un detalle solo le puede pertenecer a una comanda
+     * En este caso como es composicion se le tiene que agregar un CascadeType de los tipos Persist, Remove y Merge
+     */
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true) // Composición
+    private List<DetalleComanda> detalles = new ArrayList<>();
     
     
     

@@ -23,32 +23,56 @@ public class Ingrediente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+    /**
+     * Atributo para guardar el nombre de un ingrediente
+     */
     @Column (name = "Nombre_Ingrediente", nullable = false, length = 50)
     private String nombre;
-    
+    /**
+     * Atributo para guardar que tipo de unidad de medida se mide el ingrediente
+     */
     @Column (name = "Unidad_Medida", nullable = false, length = 50, unique = true)
     private String unidadMedida;
-    
+    /**
+     * Atributo para guardar la cantidad actual que hay de un ingrediente
+     */
     @Column (name = "Cantidad_Actual", nullable = false)
     private Double cantidadActual; 
 
+    /**
+     * Constructor vacio
+     */
     public Ingrediente() {
     }
-
+    /**
+     * Constructor con todos los atributos
+     * @param id
+     * @param nombre
+     * @param unidadMedida
+     * @param cantidadActual 
+     */
     public Ingrediente(Long id, String nombre, String unidadMedida, Double cantidadActual) {
         this.id = id;
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
         this.cantidadActual = cantidadActual;
     }
-
+    /**
+     * Constructor con todos los atributos excepto el ID
+     * @param nombre
+     * @param unidadMedida
+     * @param cantidadActual 
+     */
     public Ingrediente(String nombre, String unidadMedida, Double cantidadActual) {
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
         this.cantidadActual = cantidadActual;
     }
-
+    
+    /**
+     * Getters y Setters
+     */
+    
     public Long getId() {
         return id;
     }
