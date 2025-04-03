@@ -5,54 +5,79 @@
 package entidades;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
- * @author rodri
+ * @author Daniel Miribe
  */
 @Entity
-public class ClienteFrecuente implements Serializable {
+@Table(name = "ClientesFrecuentes")
+@DiscriminatorValue("1")
+public class ClienteFrecuente extends Cliente implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "numeroVisitas")
+    private Integer numVisitas;
 
-    public Long getId() {
-        return id;
+    @Column(name = "totalGastado")
+    private Double totalGastado;
+
+    @Column(name = "puntosDeFidelidad")
+    private Integer puntosDeFidelidad;
+
+    /**
+     * Constructor vacio requerido
+     */
+    public ClienteFrecuente() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * Constructor que inicializa todos los parametros de la entidad
+     *
+     * @param numVisitas
+     * @param totalGastado
+     * @param puntosDeFidelidad
+     */
+    public ClienteFrecuente(Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+        this.numVisitas = numVisitas;
+        this.totalGastado = totalGastado;
+        this.puntosDeFidelidad = puntosDeFidelidad;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Integer getNumVisitas() {
+        return numVisitas;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClienteFrecuente)) {
-            return false;
-        }
-        ClienteFrecuente other = (ClienteFrecuente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setNumVisitas(Integer numVisitas) {
+        this.numVisitas = numVisitas;
+    }
+
+    public Double getTotalGastado() {
+        return totalGastado;
+    }
+
+    public void setTotalGastado(Double totalGastado) {
+        this.totalGastado = totalGastado;
+    }
+
+    public Integer getPuntosDeFidelidad() {
+        return puntosDeFidelidad;
+    }
+
+    public void setPuntosDeFidelidad(Integer puntosDeFidelidad) {
+        this.puntosDeFidelidad = puntosDeFidelidad;
     }
 
     @Override
     public String toString() {
-        return "entidades.ClienteFrecuente[ id=" + id + " ]";
+        return "ClienteFrecuente{"
+                + "numVisitas=" + numVisitas
+                + ", totalGastado=" + totalGastado
+                + ", puntosDeFidelidad=" + puntosDeFidelidad
+                + '}';
     }
-    
+
 }

@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -53,7 +55,9 @@ public class Comanda implements Serializable {
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true) // Composición
     private List<DetalleComanda> detalles = new ArrayList<>();
     
-    
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
     
     
 

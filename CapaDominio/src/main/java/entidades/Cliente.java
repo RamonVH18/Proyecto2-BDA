@@ -5,23 +5,81 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author rodri
+ * @author Daniel Miribe
  */
+//Estrategia JOINED utilizada, para mejor flexibilidad a la hora de realizar consultas, 
+//al mismo tiempo que se separan en diferentes tablas para mejor claridad.
 @Entity
-public class Cliente implements Serializable {
+@Table(name = "Clientes")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "product_type", discriminatorType = DiscriminatorType.INTEGER)
+public abstract class Cliente implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombreCompleto", length = 100, nullable = false)
+    private String nombreCompleto;
+
+    @Column(name = "numeroTelefono", length = 15, nullable = false, unique = true)
+    private String numeroTelefono;
+
+    @Column(name = "correo", length = 100, nullable = false, unique = true)
+    private String correo;
+
+    @Column(name = "fechaRegistro", nullable = false)
+    private LocalDateTime fechaRegistro;
+
+    /**
+     * Relacion 1:N, donde un cliente puede solicitar muchas comandas, y cada
+     * comanda le pertenece a un cliente. Aunque una comanda no necesariamente
+     * debe tener un cliente asociado.
+     */
+    @OneToMany(mappedBy = "cliente")
+    private List<Comanda> comandas;
+
+    /**
+     * Constructor vacio requerido
+     */
+    public Cliente() {
+    }
+
+    /**
+     * Constructor que inicializa todos los parametros de la entidad
+     *
+     * @param nombreCompleto
+     * @param numeroTelefono
+     * @param correo
+     * @param fechaRegistro
+     * @param comandas
+     */
+    public Cliente(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro, List<Comanda> comandas) {
+        this.nombreCompleto = nombreCompleto;
+        this.numeroTelefono = numeroTelefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
+        this.comandas = comandas;
+    }
+
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -30,29 +88,57 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
-            return false;
-        }
-        Cliente other = (Cliente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public List<Comanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(List<Comanda> comandas) {
+        this.comandas = comandas;
+    }
+
+    //Metodo toString
     @Override
     public String toString() {
-        return "entidades.Cliente[ id=" + id + " ]";
+        return "Cliente{"
+                + "id=" + id
+                + ", nombreCompleto=" + nombreCompleto
+                + ", numeroTelefono=" + numeroTelefono
+                + ", correo=" + correo
+                + ", fechaRegistro=" + fechaRegistro
+                + ", comandas" + comandas.size()
+                + '}';
     }
-    
+
 }
