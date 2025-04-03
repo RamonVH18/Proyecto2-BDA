@@ -60,19 +60,7 @@ public class Producto implements Serializable {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     //Getters y Setters --------------------------------------------------------
     public Long getId() {
         return id;
@@ -105,12 +93,14 @@ public class Producto implements Serializable {
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
-    
-    
-    
-    
-    
-    
+
+    public List<IngredienteProducto> getIngredientesUsados() {
+        return ingredientesUsados;
+    }
+
+    public void setIngredientesUsados(List<IngredienteProducto> ingredientesUsados) {
+        this.ingredientesUsados = ingredientesUsados;
+    }
     
     
     
@@ -142,7 +132,9 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", ingredientesUsados=" + ingredientesUsados + '}';
     }
+
+    
     
 }
