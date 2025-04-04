@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -29,20 +30,21 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     /**
      * Atributo que guarda el numero de visitas de un cliente.
      */
-    @Column(name = "numeroVisitas")
+    @Transient
     private Integer numVisitas;
 
     /**
      * Atributo que guarda el total gastado por parte de un cliente.
      */
-    @Column(name = "totalGastado")
+    @Transient
     private Double totalGastado;
 
     /**
      * Atributo que guarda los puntos de fidelidad de un cliente, los cuales se
      * consiguen cada 20 pesos gastados. 20 pesos = 1 punto.
      */
-    @Column(name = "puntosDeFidelidad")
+
+    @Transient
     private Integer puntosDeFidelidad;
 
     /**

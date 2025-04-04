@@ -39,7 +39,7 @@ public class DetalleComanda implements Serializable {
      * Atributo para escribir la cantidad de productos que tienen estos detalles en especifico
      */
     @Column (name = "Cantidad", nullable = false)
-    private int cantidad;
+    private Integer cantidad;
     /**
      * Atributo para definir el precio en el que se van a vender el o los productos
      */

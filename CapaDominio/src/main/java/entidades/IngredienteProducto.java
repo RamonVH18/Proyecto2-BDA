@@ -30,7 +30,7 @@ public class IngredienteProducto implements Serializable {
      * Columna Encargada de mostrar la cantidad de un ingrediente 
      * en un producto
      */
-    @Column (name = "Cantidad_Ingrediente", nullable = true)
+    @Column (name = "Cantidad_Ingrediente", nullable = false)
     private String cantidad;
     
     @ManyToOne

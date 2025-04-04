@@ -63,7 +63,7 @@ public abstract class Cliente implements Serializable {
      * Atributo que guarda el correo del cliente, es obligatorio, irrepetible y
      * tiene una longitud maxima de 100 caracteres
      */
-    @Column(name = "correo", length = 100, nullable = false, unique = true)
+    @Column(name = "correo", length = 100, nullable = true)
     private String correo;
 
     /**

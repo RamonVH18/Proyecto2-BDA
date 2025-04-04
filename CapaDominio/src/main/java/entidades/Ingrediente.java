@@ -31,6 +31,7 @@ public class Ingrediente implements Serializable {
     /**
      * Atributo para guardar que tipo de unidad de medida se mide el ingrediente
      */
+    // gramo, pieza, mililitro convertir a enum
     @Column (name = "Unidad_Medida", nullable = false, length = 50, unique = true)
     private String unidadMedida;
     /**

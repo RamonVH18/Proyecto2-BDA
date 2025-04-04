@@ -34,6 +34,9 @@ public class Producto implements Serializable {
     @Column(name = "nombre",nullable = false,unique = true)
     private String nombre;
     
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
+    
     @Column(name = "precio",nullable = false)
     private Integer precio;
     
@@ -86,6 +89,14 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
     public Tipo getTipo() {
         return tipo;
     }
@@ -132,7 +143,13 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", ingredientesUsados=" + ingredientesUsados + '}';
+        return "Producto{" + 
+                "id=" + id + 
+                ", nombre=" + nombre + 
+                ", precio=" + precio + 
+                ", tipo=" + tipo + 
+                ", estado=" + estado + 
+                ", ingredientesUsados=" + ingredientesUsados + '}';
     }
 
     

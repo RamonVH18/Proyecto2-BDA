@@ -45,7 +45,7 @@ public class Comanda implements Serializable {
     private Estado estado;
     
     @Column(name = "total",nullable = false)
-    private double precio;
+    private Double precio;
     /**
      * Mapeo de la relacion Uno a Muchos de Comanda y detalles de comanda
      * Donde una comanda puede tener muchos detalles
