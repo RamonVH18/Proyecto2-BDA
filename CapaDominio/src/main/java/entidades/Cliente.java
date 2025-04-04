@@ -73,13 +73,13 @@ public abstract class Cliente implements Serializable {
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro;
 
-    /**
-     * Relacion 1:N, donde un cliente puede solicitar muchas comandas, y cada
-     * comanda le pertenece a un cliente. Aunque una comanda no necesariamente
-     * debe tener un cliente asociado.
-     */
-    @OneToMany(mappedBy = "cliente")
-    private List<Comanda> comandas;
+//    /**
+//     * Relacion 1:N, donde un cliente puede solicitar muchas comandas, y cada
+//     * comanda le pertenece a un cliente. Aunque una comanda no necesariamente
+//     * debe tener un cliente asociado.
+//     */
+//    @OneToMany(mappedBy = "cliente")
+//    private List<Comanda> comandas;
 
     /**
      * Constructor vacio requerido

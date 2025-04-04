@@ -65,7 +65,7 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(String folio, LocalDateTime fecha, Estado estado, double precio) {
+    public Comanda(String folio, LocalDateTime fecha, Estado estado, Double precio) {
         this.folio = folio;
         this.fecha = fecha;
         this.estado = estado;
@@ -106,12 +106,28 @@ public class Comanda implements Serializable {
         this.estado = estado;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public List<DetalleComanda> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleComanda> detalles) {
+        this.detalles = detalles;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     
