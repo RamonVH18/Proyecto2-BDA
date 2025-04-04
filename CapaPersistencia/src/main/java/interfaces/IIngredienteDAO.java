@@ -16,7 +16,7 @@ public interface IIngredienteDAO {
     
     public Ingrediente registraIngrediente(Ingrediente ingrediente) throws IngredienteException;
     
-    public List<Ingrediente> buscarTodosLosIngredientes();
+    public List<Ingrediente> buscarTodosLosIngredientes() throws IngredienteException;
     
     public Ingrediente buscarIngredientePorNombre(String nombre);
     

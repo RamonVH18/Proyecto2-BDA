@@ -9,6 +9,7 @@ import Enums.Unidad;
 import entidades.Ingrediente;
 import exception.IngredienteException;
 import interfaces.IIngredienteDAO;
+import java.util.List;
 
 /**
  *
@@ -19,12 +20,14 @@ public class IngredientePruebas {
     
     public static void main(String[] args) throws IngredienteException{
         IIngredienteDAO ingredienteDAO = new IngredienteDAO();
-        Unidad ml = Unidad.MILILITRO;
-        Unidad grm = Unidad.GRAMO;
-        Ingrediente ingrediente1 = new Ingrediente("Miel", ml, 200.00);
-        Ingrediente ingrediente2 = new Ingrediente("Melcoche", grm, 350.00);
+//        Ingrediente ingrediente1 = new Ingrediente("Miel", ml, 200.00);
+//        Ingrediente ingrediente2 = new Ingrediente("Melcoche", grm, 350.00);
+//        
+//        ingrediente1 = ingredienteDAO.registraIngrediente(ingrediente1);
+//        ingrediente2 = ingredienteDAO.registraIngrediente(ingrediente2);
+
+        Ingrediente ingrediente = ingredienteDAO.buscarIngredientePorNombre("Melcoche");
         
-        ingrediente1 = ingredienteDAO.registraIngrediente(ingrediente1);
-        ingrediente2 = ingredienteDAO.registraIngrediente(ingrediente2);
+        System.out.println(ingrediente);
     }
 }

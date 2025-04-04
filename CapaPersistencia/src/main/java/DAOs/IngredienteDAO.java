@@ -45,13 +45,17 @@ public class IngredienteDAO implements IIngredienteDAO{
     }
 
     @Override
-    public List<Ingrediente> buscarTodosLosIngredientes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Ingrediente> buscarTodosLosIngredientes() throws IngredienteException{
+        em = Utilerias.validarConexion(em);
+        return em.createQuery("SELECT i FROM Ingrediente i")
+                .getResultList();
     }
 
     @Override
     public Ingrediente buscarIngredientePorNombre(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        em = Utilerias.validarConexion(em);
+        return em.createQuery("SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", Ingrediente.class).setParameter("nombre", nombre).getSingleResult();
+        
     }
 
     @Override
