@@ -21,30 +21,55 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Daniel Miribe
+ * @author Daniel M
+ *
+ * Entidad padre que guarda los atributos comunes de cada cliente.
+ *
+ * Estrategia JOINED utilizada, para mejor flexibilidad a la hora de realizar
+ * consultas, al mismo tiempo que se separan en diferentes tablas para mejor
+ * claridad.
  */
-//Estrategia JOINED utilizada, para mejor flexibilidad a la hora de realizar consultas, 
-//al mismo tiempo que se separan en diferentes tablas para mejor claridad.
 @Entity
 @Table(name = "Clientes")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "product_type", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Cliente implements Serializable {
 
-    // Atributos
+    /**
+     * Atributos
+     */
+    /**
+     * Atributo encargado de guardar el ID del cliente.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Guarda el nombre completo del cliente, es obligatorio y tiene una
+     * longitud maxima de 100 caracteres
+     */
     @Column(name = "nombreCompleto", length = 100, nullable = false)
     private String nombreCompleto;
 
+    /**
+     * Atributo que guarda el telefono del cliente, es obligatorio, irrepetible
+     * y tiene una longitud maxima de 15 caracteres
+     */
     @Column(name = "numeroTelefono", length = 15, nullable = false, unique = true)
     private String numeroTelefono;
 
+    /**
+     * Atributo que guarda el correo del cliente, es obligatorio, irrepetible y
+     * tiene una longitud maxima de 100 caracteres
+     */
     @Column(name = "correo", length = 100, nullable = false, unique = true)
     private String correo;
 
+    /**
+     * Atributo que guarda la fecha en la que el cliente fue registrado, es
+     * obligatorio
+     */
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro;
 
@@ -63,7 +88,7 @@ public abstract class Cliente implements Serializable {
     }
 
     /**
-     * Constructor que inicializa todos los parametros de la entidad
+     * Constructor que inicializa todos los parametros de la entidad cliente
      *
      * @param nombreCompleto
      * @param numeroTelefono
@@ -79,7 +104,10 @@ public abstract class Cliente implements Serializable {
         this.comandas = comandas;
     }
 
-    // Getters y Setters
+    /**
+     * Getters y Setters
+     *
+     */
     public Long getId() {
         return id;
     }
@@ -128,7 +156,11 @@ public abstract class Cliente implements Serializable {
         this.comandas = comandas;
     }
 
-    //Metodo toString
+    /**
+     * Metodo toString que devuelve los atributos de cada cliente
+     *
+     * @return Atributos de cada cliente
+     */
     @Override
     public String toString() {
         return "Cliente{"

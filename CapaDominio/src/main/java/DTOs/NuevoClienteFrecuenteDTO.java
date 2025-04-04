@@ -2,70 +2,66 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /**
+ * Subclase DTO que hereda los atributos comunes de la clase NuevoClienteDTO.
+ * Esta clase guarda los atributos de un cliente frecuente.
  *
  * @author Daniel Miribe
- *
- * Entidad hija llamada ClienteFrecuente que hereda los atributos de la entidad
- * padre Cliente. Esta entidad guarda los datos de un tipo de cliente, el cual
- * es Cliente Frecuente.
  */
-@Entity
-@Table(name = "ClientesFrecuentes")
-@DiscriminatorValue("1")
-public class ClienteFrecuente extends Cliente implements Serializable {
+public class NuevoClienteFrecuenteDTO extends NuevoClienteDTO {
 
     /**
      * Atributos
+     *
      */
     /**
-     * Atributo que guarda el numero de visitas de un cliente.
+     * Atributo que guarda el numero de visitas de un cliente frecuente.
      */
-    @Column(name = "numeroVisitas")
     private Integer numVisitas;
 
     /**
-     * Atributo que guarda el total gastado por parte de un cliente.
+     * Atributo que guarda el total gastado de un cliente frecuente.
      */
-    @Column(name = "totalGastado")
     private Double totalGastado;
 
     /**
-     * Atributo que guarda los puntos de fidelidad de un cliente, los cuales se
-     * consiguen cada 20 pesos gastados. 20 pesos = 1 punto.
+     * Atributo que guarda los puntos de fidelidad de un cliente, estos puntos
+     * se consiguen gastando dinero. 20 pesos = 1 punto.
      */
-    @Column(name = "puntosDeFidelidad")
     private Integer puntosDeFidelidad;
 
     /**
-     * Constructor vacio requerido
+     * Constructor vacio requerido.
      */
-    public ClienteFrecuente() {
+    public NuevoClienteFrecuenteDTO() {
     }
 
     /**
-     * Constructor que inicializa todos los parametros de la entidad
+     * Constructor que incializa los atributos de un cliente frecuente.
      *
+     * @param nombreCompleto
+     * @param numeroTelefono
+     * @param correo
+     * @param fechaRegistro
      * @param numVisitas
      * @param totalGastado
      * @param puntosDeFidelidad
      */
-    public ClienteFrecuente(Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+    public NuevoClienteFrecuenteDTO(String nombreCompleto, String numeroTelefono, String correo,
+            LocalDateTime fechaRegistro, Integer numVisitas, Double totalGastado,
+            Integer puntosDeFidelidad) {
+        super(nombreCompleto, numeroTelefono, correo, fechaRegistro);
         this.numVisitas = numVisitas;
         this.totalGastado = totalGastado;
         this.puntosDeFidelidad = puntosDeFidelidad;
     }
 
     /**
-     * Getters y Setters
+     * Getters y Setters.
      *
      */
     public Integer getNumVisitas() {
@@ -99,7 +95,7 @@ public class ClienteFrecuente extends Cliente implements Serializable {
      */
     @Override
     public String toString() {
-        return "ClienteFrecuente{"
+        return "NuevoClienteFrecuenteDTO{"
                 + "numVisitas=" + numVisitas
                 + ", totalGastado=" + totalGastado
                 + ", puntosDeFidelidad=" + puntosDeFidelidad
