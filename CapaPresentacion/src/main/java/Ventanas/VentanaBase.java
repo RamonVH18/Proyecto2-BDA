@@ -71,7 +71,11 @@ public abstract class VentanaBase extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
+    /**
+     * Metodo necesario para la configuracion base de todos los frames que heredaran de este metodo
+     * @param tituloVentana
+     * @param titulo 
+     */
     private void configurarFrame(JLabel tituloVentana, String titulo) {
         JPanel panelNorte = new JPanel();
         JPanel panelSur = new JPanel();
@@ -88,7 +92,11 @@ public abstract class VentanaBase extends JFrame {
         this.add(panelNorte, BorderLayout.NORTH);
         
     }
-    
+    /**
+     * Metodo necesario para configurar el titulo de los JFrame
+     * @param tituloVentana
+     * @param titulo 
+     */
     private void configurarTitulo(JLabel tituloVentana, String titulo) {
         tituloVentana.setSize(new Dimension(125, 55));
         tituloVentana.setText(titulo);
@@ -96,13 +104,19 @@ public abstract class VentanaBase extends JFrame {
         tituloVentana.setVerticalAlignment(SwingConstants.CENTER);
         tituloVentana.setFont(new Font("Regular", Font.BOLD, 32));
     }
-    
+    /**
+     * Metodo que se encarga de configurar la parte superior de un JFrame
+     * @param panelNorte 
+     */
     private void configuracionNorte(JPanel panelNorte){
         Border border = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK);
         panelNorte.setPreferredSize(new Dimension(650, 70));
         panelNorte.setBorder(border);
     }
-    
+    /**
+     * Metodo que se encarga de configurar la parte inferior de un JFrame 
+     * @param panelSur 
+     */
     private void configuracionSur(JPanel panelSur) {
         Border border = BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK);
         panelSur.setPreferredSize(new Dimension(650, 70));

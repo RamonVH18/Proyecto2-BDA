@@ -103,6 +103,7 @@ public class InicioSesion extends VentanaBase {
     private void botonAdministradorMouseClicked(java.awt.event.MouseEvent evt) {
         navegacion.registrarVentana("Menu Administrador", new MenuAdministrador(control));
         navegacion.abrirVentana("Menu Administrador");
+        navegacion.cerrarVentana("Inicio Sesion");
     }
     /**
      * @param args the command line arguments
@@ -117,7 +118,9 @@ public class InicioSesion extends VentanaBase {
     
     
 
-    
+    /**
+     * Metodo necesario para configurar esta pantalla en especifico
+     */
     private void generarInicioSesion() {
         
         botonAdministrador = new JButton("ADMINISTRADOR");
@@ -127,7 +130,12 @@ public class InicioSesion extends VentanaBase {
         generarPanelCentral(panelCentral, botonAdministrador, botonMesero);
         generarBotonSalir(botonSalir);
     }
-    
+    /**
+     * Metodo necesario para el acomodo de los botones administrador y mesero
+     * @param panelCentral
+     * @param btnAdmin
+     * @param btnMesero 
+     */
     private void generarPanelCentral(JPanel panelCentral, JButton btnAdmin, JButton btnMesero) {
         Dimension tamañoPanel = new Dimension(400, 300);
         panelCentral.setPreferredSize(tamañoPanel);
@@ -145,6 +153,10 @@ public class InicioSesion extends VentanaBase {
         this.add(panelCentral, BorderLayout.CENTER);
     }
     
+    /**
+     * Metodo que se encarga de configurar el boton de Administrador
+     * @param btnAdmin 
+     */
     private void configurarBtnAdmin(JButton btnAdmin) {
         btnAdmin.setPreferredSize(new Dimension(400, 100));
         btnAdmin.revalidate();
@@ -155,7 +167,10 @@ public class InicioSesion extends VentanaBase {
             }
         });
     }
-    
+    /**
+     * Metodo que se encarga de configurar el boton de Salir
+     * @param boton 
+     */
     private void generarBotonSalir(JButton boton) {
         JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
         boton.setPreferredSize(new Dimension(125, 70));

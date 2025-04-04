@@ -12,11 +12,20 @@ import Ventanas.VentanaBase;
  */
 public interface IControl {
     
+    /**
+     * Metodo que se encarga de abrir las ventana seleccionada
+     * @param nombre 
+     */
     public void abrirVentana(String nombre);
-    
+    /**
+     * Metodo que se encarga de guardar la ventana que se acaba de abrir en el HashMap y de esa manera se pueda manipular y se pueda abrir
+     * @param nombre
+     * @param ventana 
+     */
     public void registrarVentana(String nombre, VentanaBase ventana);
-    
-    public void cerrarVentana();
-    
-    public void abrirCuadroError();
+    /**
+     * Este metodo se encarga de cerrar una ventan
+     * @param nombre 
+     */
+    public void cerrarVentana(String nombre);
 }
