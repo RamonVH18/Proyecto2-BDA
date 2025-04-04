@@ -30,7 +30,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Clientes")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "product_type", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "tipo_cliente", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Cliente implements Serializable {
 
     /**

@@ -5,6 +5,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -43,7 +44,6 @@ public class ClienteFrecuente extends Cliente implements Serializable {
      * Atributo que guarda los puntos de fidelidad de un cliente, los cuales se
      * consiguen cada 20 pesos gastados. 20 pesos = 1 punto.
      */
-
     @Transient
     private Integer puntosDeFidelidad;
 
@@ -59,8 +59,14 @@ public class ClienteFrecuente extends Cliente implements Serializable {
      * @param numVisitas
      * @param totalGastado
      * @param puntosDeFidelidad
+     * @param nombreCompleto
+     * @param numeroTelefono
+     * @param correo
+     * @param fechaRegistro
      */
-    public ClienteFrecuente(Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+    public ClienteFrecuente(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro,
+            Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+        super(nombreCompleto, numeroTelefono, correo, fechaRegistro);
         this.numVisitas = numVisitas;
         this.totalGastado = totalGastado;
         this.puntosDeFidelidad = puntosDeFidelidad;
