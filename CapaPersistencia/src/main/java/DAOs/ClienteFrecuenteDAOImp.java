@@ -146,7 +146,6 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
                     .setParameter("correo", correo)
                     .getSingleResult();
         } catch (Exception e) {
-            em.getTransaction().rollback();
             throw new ClienteFrecuenteException("Error al buscar cliente frecuente por correo: " + e.getMessage());
         } finally {
             em.close();

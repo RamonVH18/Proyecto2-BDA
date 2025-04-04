@@ -26,3 +26,4 @@ replay_pid*
 /CapaNegocio/target/
 /CapaPresentacion/target/
 /CapaPersistencia/target/
+/CapaPersistencia/nbproject/
