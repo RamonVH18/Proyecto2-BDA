@@ -104,6 +104,9 @@ public class MenuIngredientes extends VentanaBase {
     private javax.swing.JButton btnVerIngrediente;
     // End of variables declaration//GEN-END:variables
     
+    /**
+     * Metodo necesario para la generacion del Menu de Ingredientes
+     */
     private void generarMenuIngredientes() {
         JPanel panelCentral = new JPanel();
         btnRegreso = new JButton("REGRESAR");
@@ -116,7 +119,10 @@ public class MenuIngredientes extends VentanaBase {
         generarBotonRegreso(btnRegreso);
         
     }
-    
+    /**
+     * Metodo que se encarga de generar el panel central donde estaran los botones de seleccionar opcion
+     * @param panelCentral 
+     */
     private void generarPanelCentral(JPanel panelCentral){
         panelCentral.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -133,7 +139,10 @@ public class MenuIngredientes extends VentanaBase {
         panelCentral.repaint();
         add(panelCentral, BorderLayout.CENTER);
     }
-    
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     * @param boton 
+     */
     private void generarBotonRegreso(JButton boton) {
         JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
         boton.setPreferredSize(new Dimension(125, 70));
@@ -149,7 +158,12 @@ public class MenuIngredientes extends VentanaBase {
         panelSur.revalidate();
         panelSur.repaint();
     }
-    
+    /**
+     * Metodo que se encarga de configura los botones para selecionar una opcion de ventana
+     * @param boton
+     * @param ventana
+     * @param tipo 
+     */
     private void configuracionBotonModulo(JButton boton, String ventana, TipoVentana tipo) {
         boton.setPreferredSize(new Dimension(200, 100));
         VentanaFactory fabrica = new VentanaFactory();
@@ -157,7 +171,7 @@ public class MenuIngredientes extends VentanaBase {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 navegacion.registrarVentana(ventana, fabrica.crearVentana(tipo));
                 navegacion.abrirVentana(ventana);
-                navegacion.cerrarVentana("Menu Administrador");
+                navegacion.cerrarVentana("Menu de Ingredientes");
             }
         });
     }

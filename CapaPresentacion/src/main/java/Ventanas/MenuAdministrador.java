@@ -102,9 +102,9 @@ public class MenuAdministrador extends VentanaBase {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * Metodo que detecta cuando el boton de regreso es presionado
+     * @param evt 
      */
-    
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         navegacion.registrarVentana("Inicio Sesion", new InicioSesion(control));
@@ -119,7 +119,9 @@ public class MenuAdministrador extends VentanaBase {
     private javax.swing.JButton btnRegreso;
     private javax.swing.JButton btnReportes;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Metodo que se encarga de la generacion del menu de administrador
+     */
     private void generarMenuAdministrador(){
         JPanel panelCentral = new JPanel();
         btnRegreso = new JButton("LOG OUT");
@@ -127,13 +129,17 @@ public class MenuAdministrador extends VentanaBase {
         btnComandas = new JButton("Modulo de Comandas");
         configuracionBotonModulo(btnComandas, "Menu Comandas", TipoVentana.COMANDAS);
         btnIngredientes = new JButton("Modulo de Ingredientes");
-        configuracionBotonModulo(btnIngredientes, "Menu Ingredientes", TipoVentana.INGREDIENTES);
+        configuracionBotonModulo(btnIngredientes, "Menu de Ingredientes", TipoVentana.INGREDIENTES);
         btnProductos = new JButton("Modulo de Productos");
         btnReportes = new JButton("Modulo de Reportes");
         generarPanelCentral(panelCentral);
         generarBotonRegreso(btnRegreso);
     }
     
+    /**
+     * Metodo que se encaraga de generar el Panel Central donde iran todos los botones
+     * @param panelCentral 
+     */
     private void generarPanelCentral(JPanel panelCentral){
         panelCentral.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -161,7 +167,10 @@ public class MenuAdministrador extends VentanaBase {
         panelCentral.repaint();
         add(panelCentral, BorderLayout.CENTER);
     }
-    
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     * @param boton 
+     */
     private void generarBotonRegreso(JButton boton) {
         JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
         boton.setPreferredSize(new Dimension(125, 70));
@@ -177,7 +186,13 @@ public class MenuAdministrador extends VentanaBase {
         panelSur.revalidate();
         panelSur.repaint();
     }
-    
+    /**
+     * Este metodo es clave, es el encargado de que cada boton de modulo te lleve a la correspondiente ventana
+     * todo esto utilizando el patron de diseño de FactoryMethod
+     * @param boton
+     * @param ventana
+     * @param tipo 
+     */
     private void configuracionBotonModulo(JButton boton, String ventana, TipoVentana tipo) {
         boton.setPreferredSize(new Dimension(200, 100));
         VentanaFactory fabrica = new VentanaFactory();

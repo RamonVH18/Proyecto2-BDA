@@ -4,23 +4,38 @@
  */
 package Ventanas;
 
+import Control.ControlDeNavegacion;
 import Control.IControl;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class RegistroIngrediente extends VentanaBase {
-    
+
+    private Control.ControlDeNavegacion navegacion;
+
     /**
      * Creates new form RegistroIngrediente
      */
     public RegistroIngrediente(IControl control) {
-        super(control, "Registro Ventana");
+        super(control, "Registro Ingrediente");
+        navegacion = ControlDeNavegacion.getInstance();
+        generarRegistroIngrediente();
+
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,17 +45,65 @@ public class RegistroIngrediente extends VentanaBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelNombre = new javax.swing.JLabel();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jLabelUnidad = new javax.swing.JLabel();
+        jTextFieldUnidad = new javax.swing.JTextField();
+        jLabelCantidad = new javax.swing.JLabel();
+        jTextFieldCantidad = new javax.swing.JTextField();
+        btnRegreso = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelNombre.setText("jLabel1");
+
+        jTextFieldNombre.setText("jTextField1");
+
+        jLabelUnidad.setText("jLabel2");
+
+        jTextFieldUnidad.setText("jTextField2");
+
+        jLabelCantidad.setText("jLabel3");
+
+        jTextFieldCantidad.setText("jTextField3");
+
+        btnRegreso.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCantidad)
+                    .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelUnidad)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNombre))
+                .addContainerGap(224, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnRegreso)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabelNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelUnidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelCantidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(btnRegreso))
         );
 
         pack();
@@ -49,7 +112,99 @@ public class RegistroIngrediente extends VentanaBase {
     /**
      * @param args the command line arguments
      */
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
+        navegacion.abrirVentana("Menu Ingredientes");
+        navegacion.cerrarVentana("Registro Ingrediente");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegreso;
+    private javax.swing.JLabel jLabelCantidad;
+    private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelUnidad;
+    private javax.swing.JTextField jTextFieldCantidad;
+    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldUnidad;
     // End of variables declaration//GEN-END:variables
+    /**
+     * Metodo para generar la ventana del registro de ingredientes
+     */
+    private void generarRegistroIngrediente() {
+        JPanel panelContenedor = new JPanel();
+        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));
+
+        // Panel de margen para centrar
+        JPanel espacioIzquierdo = new JPanel();
+        espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        JPanel espacioDerecho = new JPanel();
+        espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        JPanel panelCentral = new JPanel();
+        panelCentral.setLayout(new GridLayout(0, 1, 20, 20));
+        panelCentral.setPreferredSize(new Dimension(300, 200)); // Ajusta el ancho del panel
+
+        btnRegreso = new JButton("REGRESAR");
+        generarBotonRegreso(btnRegreso);
+
+        jLabelNombre = new JLabel("Nombre:");
+        jTextFieldNombre = new JTextField();
+        jLabelUnidad = new JLabel("Unidad de Medida:");
+        jTextFieldUnidad = new JTextField();
+        jLabelCantidad = new JLabel("Cantidad:");
+        jTextFieldCantidad = new JTextField();
+
+        panelCentral.add(generacionPanel(jLabelNombre, jTextFieldNombre));
+        panelCentral.add(generacionPanel(jLabelUnidad, jTextFieldUnidad));
+        panelCentral.add(generacionPanel(jLabelCantidad, jTextFieldCantidad));
+
+        panelContenedor.add(espacioIzquierdo);
+        panelContenedor.add(panelCentral);
+        panelContenedor.add(espacioDerecho);
+        
+        add(panelContenedor, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
+    /**
+     * Este metodo genera un panel que es donde se unen los label y los textField
+     * @param label
+     * @param textField
+     * @return 
+     */
+    private JPanel generacionPanel(JLabel label, JTextField textField) {
+        JPanel panel = new JPanel();
+        Font fuente = new Font("Arial", Font.BOLD, 18);
+        label.setFont(fuente);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        textField.setFont(fuente);
+        textField.setPreferredSize(new Dimension(100, 25));
+        panel.setLayout(new GridLayout(0, 1, 5, 5));
+        panel.setMaximumSize(new Dimension(100, 500));
+        panel.add(label);
+        panel.add(textField);
+        return panel;
+    }
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     * @param boton 
+     */
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
 }

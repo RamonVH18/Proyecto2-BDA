@@ -15,7 +15,8 @@ import Ventanas.VentanaBase;
 import Ventanas.VerIngredientes;
 
 /**
- *
+ * Esta clase es donde se crea el FactoryMethod necesario para cuando se quiera 
+ * acceder a una ventana sin especificar cual
  * @author Ramon Valencia
  */
 public class VentanaFactory {
