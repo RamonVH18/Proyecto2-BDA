@@ -5,6 +5,7 @@
 package interfaces;
 
 import entidades.Ingrediente;
+import exception.IngredienteException;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface IIngredienteDAO {
     
-    public Ingrediente registraIngrediente(Ingrediente ingrediente);
+    public Ingrediente registraIngrediente(Ingrediente ingrediente) throws IngredienteException;
     
     public List<Ingrediente> buscarTodosLosIngredientes();
     

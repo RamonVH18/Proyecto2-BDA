@@ -8,8 +8,8 @@
     <class>entidades.Producto</class>
     <class>entidades.Ingrediente</class>
     <class>entidades.ClienteFrecuente</class>
-    <class>entidades.DetallesComanda</class>
-    <class>entidades.IngredientesProducto</class>
+    <class>entidades.DetalleComanda</class>
+    <class>entidades.IngredienteProducto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurante?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

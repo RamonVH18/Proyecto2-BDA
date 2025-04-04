@@ -25,3 +25,4 @@ replay_pid*
 /CapaDominio/target/
 /CapaNegocio/target/
 /CapaPresentacion/target/
+/CapaPersistencia/target/

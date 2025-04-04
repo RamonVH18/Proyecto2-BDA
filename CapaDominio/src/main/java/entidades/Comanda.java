@@ -20,12 +20,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author rodri
  */
 @Entity
+@Table (name = "Comandas")
 public class Comanda implements Serializable {
 
     //Atributos ----------------------------------------------------------------

@@ -29,6 +29,10 @@ public class Mesa implements Serializable {
     
     
     //Constructor --------------------------------------------------------------
+    
+    public Mesa() {
+    }
+
     public Mesa(Integer numeroMesa) {
         this.numeroMesa = numeroMesa;
     }
