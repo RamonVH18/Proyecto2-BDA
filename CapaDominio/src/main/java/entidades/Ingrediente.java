@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import Enums.Unidad;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,9 +32,8 @@ public class Ingrediente implements Serializable {
     /**
      * Atributo para guardar que tipo de unidad de medida se mide el ingrediente
      */
-    // gramo, pieza, mililitro convertir a enum
-    @Column (name = "Unidad_Medida", nullable = false, length = 50, unique = true)
-    private String unidadMedida;
+    @Column (name = "Unidad_Medida", nullable = false)
+    private Unidad unidadMedida;
     /**
      * Atributo para guardar la cantidad actual que hay de un ingrediente
      */
