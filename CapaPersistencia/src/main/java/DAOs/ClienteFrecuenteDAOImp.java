@@ -55,18 +55,23 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente clienteFrecuente) throws ClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
-            em.getTransaction().begin(); // Inicia la transaccion
+            em.getTransaction().begin();
 
-            em.persist(clienteFrecuente); // Guarda el objeto en la BD
+            // Encriptar el número de teléfono antes de persistir
+            String telefonoOriginal = clienteFrecuente.getNumeroTelefono();
+            String telefonoEncriptado = UtileriasPersistencia.EncriptadorAES.encriptar(telefonoOriginal);
+            clienteFrecuente.setNumeroTelefono(telefonoEncriptado);
 
-            em.getTransaction().commit(); // Confirma la transaccion
+            em.persist(clienteFrecuente);
+
+            em.getTransaction().commit();
             return clienteFrecuente;
 
         } catch (Exception e) {
-            em.getTransaction().rollback(); // Revierte si hay error
+            em.getTransaction().rollback();
             throw new ClienteFrecuenteException("Error al guardar el cliente frecuente: " + e.getMessage());
         } finally {
-            em.close(); // Cierra el EntityManager
+            em.close();
         }
     }
 
@@ -121,9 +126,13 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
     public ClienteFrecuente buscarPorTelefono(String telefono) throws ClienteFrecuenteException {
         EntityManager em = Conexion.crearConexion();
         try {
+            // Encriptar el telefono que se recibio como parametro
+            String telefonoEncriptado = UtileriasPersistencia.EncriptadorAES.encriptar(telefono);
+
             return em.createQuery("SELECT cf FROM ClienteFrecuente cf WHERE cf.numeroTelefono = :telefono", ClienteFrecuente.class)
-                    .setParameter("telefono", telefono)
+                    .setParameter("telefono", telefonoEncriptado)
                     .getSingleResult();
+
         } catch (Exception e) {
             throw new ClienteFrecuenteException("Error al buscar cliente frecuente por telefono: " + e.getMessage());
         } finally {

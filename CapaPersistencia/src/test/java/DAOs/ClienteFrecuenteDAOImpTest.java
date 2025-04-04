@@ -95,7 +95,8 @@ public class ClienteFrecuenteDAOImpTest {
 
         assertNotNull(resultado);
         assertEquals("Rodri Classic", resultado.getNombreCompleto());
-        assertEquals("6629876543", resultado.getNumeroTelefono());
+        String telefonoDesencriptado = UtileriasPersistencia.EncriptadorAES.desencriptar(resultado.getNumeroTelefono());
+        assertEquals("6629876543", telefonoDesencriptado);
     }
 
     /**
@@ -143,7 +144,8 @@ public class ClienteFrecuenteDAOImpTest {
     public void testBuscarPorCorreo() throws Exception {
         ClienteFrecuente resultado = dao.buscarPorCorreo("ramensito@gmail.com");
         assertNotNull(resultado, "El cliente no fue encontrado por correo.");
-        assertEquals("6621234567", resultado.getNumeroTelefono());
+        String telefonoDesencriptado = UtileriasPersistencia.EncriptadorAES.desencriptar(resultado.getNumeroTelefono());
+        assertEquals("6621234567", telefonoDesencriptado);
     }
 
 }

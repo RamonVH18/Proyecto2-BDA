@@ -51,10 +51,10 @@ public abstract class Cliente implements Serializable {
     private String nombreCompleto;
 
     /**
-     * Atributo que guarda el telefono del cliente, es obligatorio, irrepetible
-     * y tiene una longitud maxima de 15 caracteres
+     * Atributo que guarda el telefono del cliente encriptado, es obligatorio, irrepetible
+     * y tiene una longitud maxima de 100 caracteres
      */
-    @Column(name = "numeroTelefono", length = 15, nullable = false, unique = true)
+    @Column(name = "numeroTelefono", nullable = false, unique = true)
     private String numeroTelefono;
 
     /**

@@ -5,7 +5,7 @@
 package DAOs;
 
 import Enums.Unidad;
-import UtileriasPersitencia.Utilerias;
+import UtileriasPersistencia.Utilerias;
 import conexion.Conexion;
 import entidades.Ingrediente;
 import exception.IngredienteException;
