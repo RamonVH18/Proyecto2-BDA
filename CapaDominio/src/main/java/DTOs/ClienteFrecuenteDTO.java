@@ -12,12 +12,37 @@ import java.time.LocalDateTime;
  *
  * @author Daniel Miribe
  */
-public class ClienteFrecuenteDTO extends ClienteDTO {
+public class ClienteFrecuenteDTO {
 
     /**
      * Atributos
      *
      */
+    /**
+     * Atributo que representa el ID de un cliente.
+     */
+    private Long id;
+
+    /**
+     * Atributo que representa el nombre completo de un cliente.
+     */
+    private String nombreCompleto;
+
+    /**
+     * Atributo que representa el numero de telefono de un cliente.
+     */
+    private String numeroTelefono;
+
+    /**
+     * Atributo que representa el correo de un cliente.
+     */
+    private String correo;
+
+    /**
+     * Atributo que representa la fecha en la que se registro un cliente.
+     */
+    private LocalDateTime fechaRegistro;
+
     /**
      * Atributo que representa el numero de visitas de un cliente frecuente.
      */
@@ -52,10 +77,12 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
      * @param totalGastado
      * @param puntosDeFidelidad
      */
-    public ClienteFrecuenteDTO(Long id, String nombreCompleto, String numeroTelefono, String correo,
-            LocalDateTime fechaRegistro, Integer numVisitas, Double totalGastado,
-            Integer puntosDeFidelidad) {
-        super(id, nombreCompleto, numeroTelefono, correo, fechaRegistro);
+    public ClienteFrecuenteDTO(Long id, String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro, Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+        this.id = id;
+        this.nombreCompleto = nombreCompleto;
+        this.numeroTelefono = numeroTelefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
         this.numVisitas = numVisitas;
         this.totalGastado = totalGastado;
         this.puntosDeFidelidad = puntosDeFidelidad;
@@ -65,6 +92,46 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
      * Getters y Setters.
      *
      */
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public Integer getNumVisitas() {
         return numVisitas;
     }
@@ -97,7 +164,12 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
     @Override
     public String toString() {
         return "ClienteFrecuenteDTO{"
-                + "numVisitas=" + numVisitas
+                + "id=" + id
+                + ", nombreCompleto=" + nombreCompleto
+                + ", numeroTelefono=" + numeroTelefono
+                + ", correo=" + correo
+                + ", fechaRegistro=" + fechaRegistro
+                + ", numVisitas=" + numVisitas
                 + ", totalGastado=" + totalGastado
                 + ", puntosDeFidelidad=" + puntosDeFidelidad
                 + '}';

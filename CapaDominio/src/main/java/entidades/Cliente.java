@@ -6,7 +6,6 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -16,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -73,14 +71,6 @@ public abstract class Cliente implements Serializable {
     @Column(name = "fechaRegistro", nullable = false)
     private LocalDateTime fechaRegistro;
 
-//    /**
-//     * Relacion 1:N, donde un cliente puede solicitar muchas comandas, y cada
-//     * comanda le pertenece a un cliente. Aunque una comanda no necesariamente
-//     * debe tener un cliente asociado.
-//     */
-//    @OneToMany(mappedBy = "cliente")
-//    private List<Comanda> comandas;
-
     /**
      * Constructor vacio requerido
      */
@@ -94,14 +84,12 @@ public abstract class Cliente implements Serializable {
      * @param numeroTelefono
      * @param correo
      * @param fechaRegistro
-     * @param comandas
      */
-    public Cliente(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro, List<Comanda> comandas) {
+    public Cliente(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro) {
         this.nombreCompleto = nombreCompleto;
         this.numeroTelefono = numeroTelefono;
         this.correo = correo;
         this.fechaRegistro = fechaRegistro;
-        this.comandas = comandas;
     }
 
     /**
@@ -148,14 +136,6 @@ public abstract class Cliente implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public List<Comanda> getComandas() {
-        return comandas;
-    }
-
-    public void setComandas(List<Comanda> comandas) {
-        this.comandas = comandas;
-    }
-
     /**
      * Metodo toString que devuelve los atributos de cada cliente
      *
@@ -169,7 +149,6 @@ public abstract class Cliente implements Serializable {
                 + ", numeroTelefono=" + numeroTelefono
                 + ", correo=" + correo
                 + ", fechaRegistro=" + fechaRegistro
-                + ", comandas" + comandas.size()
                 + '}';
     }
 

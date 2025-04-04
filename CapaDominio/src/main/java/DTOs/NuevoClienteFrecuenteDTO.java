@@ -12,12 +12,32 @@ import java.time.LocalDateTime;
  *
  * @author Daniel Miribe
  */
-public class NuevoClienteFrecuenteDTO extends NuevoClienteDTO {
+public class NuevoClienteFrecuenteDTO {
 
     /**
      * Atributos
      *
      */
+    /**
+     * Atributo que guarda el nombre completo de un cliente.
+     */
+    private String nombreCompleto;
+
+    /**
+     * Atributo que guarda el numero de telefono de un cliente.
+     */
+    private String numeroTelefono;
+
+    /**
+     * Atributo que guarda el correo de un cliente.
+     */
+    private String correo;
+
+    /**
+     * Atributo que guarda la fecha en la que se registro un cliente.
+     */
+    private LocalDateTime fechaRegistro;
+
     /**
      * Atributo que guarda el numero de visitas de un cliente frecuente.
      */
@@ -51,10 +71,11 @@ public class NuevoClienteFrecuenteDTO extends NuevoClienteDTO {
      * @param totalGastado
      * @param puntosDeFidelidad
      */
-    public NuevoClienteFrecuenteDTO(String nombreCompleto, String numeroTelefono, String correo,
-            LocalDateTime fechaRegistro, Integer numVisitas, Double totalGastado,
-            Integer puntosDeFidelidad) {
-        super(nombreCompleto, numeroTelefono, correo, fechaRegistro);
+    public NuevoClienteFrecuenteDTO(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro, Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
+        this.nombreCompleto = nombreCompleto;
+        this.numeroTelefono = numeroTelefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
         this.numVisitas = numVisitas;
         this.totalGastado = totalGastado;
         this.puntosDeFidelidad = puntosDeFidelidad;
@@ -64,6 +85,38 @@ public class NuevoClienteFrecuenteDTO extends NuevoClienteDTO {
      * Getters y Setters.
      *
      */
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public Integer getNumVisitas() {
         return numVisitas;
     }
@@ -96,7 +149,11 @@ public class NuevoClienteFrecuenteDTO extends NuevoClienteDTO {
     @Override
     public String toString() {
         return "NuevoClienteFrecuenteDTO{"
-                + "numVisitas=" + numVisitas
+                + "nombreCompleto=" + nombreCompleto
+                + ", numeroTelefono=" + numeroTelefono
+                + ", correo=" + correo
+                + ", fechaRegistro=" + fechaRegistro
+                + ", numVisitas=" + numVisitas
                 + ", totalGastado=" + totalGastado
                 + ", puntosDeFidelidad=" + puntosDeFidelidad
                 + '}';
