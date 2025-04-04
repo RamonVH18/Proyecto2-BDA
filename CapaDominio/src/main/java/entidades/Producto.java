@@ -52,10 +52,11 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(String nombre, Integer precio, Tipo tipo) {
+    public Producto(String nombre, Integer precio, Tipo tipo, Boolean estado) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
+        this.estado = estado;
     }
     
     
