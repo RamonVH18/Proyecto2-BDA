@@ -4,19 +4,32 @@
  */
 package Ventanas;
 
+import Control.ControlDeNavegacion;
 import Control.IControl;
+import Control.TipoVentana;
+import Control.VentanaFactory;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class MenuIngredientes extends VentanaBase {
-    
+    private Control.ControlDeNavegacion navegacion;
     /**
      * Creates new form MenuIngredientes
      */
     public MenuIngredientes(IControl control) {
         super(control, "Menu de Ingredientes");
+        navegacion = ControlDeNavegacion.getInstance();
+        generarMenuIngredientes();
     }
 
     
@@ -31,17 +44,44 @@ public class MenuIngredientes extends VentanaBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRegreso = new javax.swing.JButton();
+        btnRegistroIngrediente = new javax.swing.JButton();
+        btnVerIngrediente = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnRegreso.setText("jButton1");
+
+        btnRegistroIngrediente.setText("jButton1");
+
+        btnVerIngrediente.setText("jButton2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegreso))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(btnRegistroIngrediente)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnVerIngrediente)))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistroIngrediente)
+                    .addComponent(btnVerIngrediente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addComponent(btnRegreso)
+                .addContainerGap())
         );
 
         pack();
@@ -50,7 +90,76 @@ public class MenuIngredientes extends VentanaBase {
     /**
      * @param args the command line arguments
      */
+    
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Menu Administrador", new MenuAdministrador(control));
+        navegacion.abrirVentana("Menu Administrador");
+        navegacion.cerrarVentana("Menu de Ingredientes");
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistroIngrediente;
+    private javax.swing.JButton btnRegreso;
+    private javax.swing.JButton btnVerIngrediente;
     // End of variables declaration//GEN-END:variables
+    
+    private void generarMenuIngredientes() {
+        JPanel panelCentral = new JPanel();
+        btnRegreso = new JButton("REGRESAR");
+        btnRegistroIngrediente = new JButton("Registrar Ingrediente");
+        configuracionBotonModulo(btnRegistroIngrediente, "Registro Ingrediente", TipoVentana.REGISTRO_INGREDIENTES);
+        btnVerIngrediente = new JButton("Ver Ingrediente");
+        configuracionBotonModulo(btnVerIngrediente, "Ver Ingredientes", TipoVentana.VER_INGREDIENTES);
+        
+        generarPanelCentral(panelCentral);
+        generarBotonRegreso(btnRegreso);
+        
+    }
+    
+    private void generarPanelCentral(JPanel panelCentral){
+        panelCentral.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); 
+        
+        gbc.gridy = 0; 
+        gbc.gridx = 0;
+        panelCentral.add(btnRegistroIngrediente, gbc);
+
+        gbc.gridx = 1;
+        panelCentral.add(btnVerIngrediente, gbc);
+        
+        panelCentral.revalidate();
+        panelCentral.repaint();
+        add(panelCentral, BorderLayout.CENTER);
+    }
+    
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
+    
+    private void configuracionBotonModulo(JButton boton, String ventana, TipoVentana tipo) {
+        boton.setPreferredSize(new Dimension(200, 100));
+        VentanaFactory fabrica = new VentanaFactory();
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                navegacion.registrarVentana(ventana, fabrica.crearVentana(tipo));
+                navegacion.abrirVentana(ventana);
+                navegacion.cerrarVentana("Menu Administrador");
+            }
+        });
+    }
 }
+
