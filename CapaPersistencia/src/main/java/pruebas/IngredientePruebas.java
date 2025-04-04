@@ -20,14 +20,20 @@ public class IngredientePruebas {
     
     public static void main(String[] args) throws IngredienteException{
         IIngredienteDAO ingredienteDAO = new IngredienteDAO();
-        Ingrediente ingrediente1 = new Ingrediente("Miel", Unidad.MILILITRO, 200.00);
-        Ingrediente ingrediente2 = new Ingrediente("Melcoche", Unidad.GRAMO, 350.00);
-        
-        ingrediente1 = ingredienteDAO.registraIngrediente(ingrediente1);
-        ingrediente2 = ingredienteDAO.registraIngrediente(ingrediente2);
+//        Ingrediente ingrediente1 = new Ingrediente("Miel", Unidad.MILILITRO, 200.00);
+//        Ingrediente ingrediente2 = new Ingrediente("Carne De Toro", Unidad.PIEZA, 80.00);
+//        
+//        ingrediente1 = ingredienteDAO.registraIngrediente(ingrediente1);
+//        ingrediente2 = ingredienteDAO.registraIngrediente(ingrediente2);
 
-//        Ingrediente ingrediente = ingredienteDAO.buscarIngredientePorNombre("Melcoche");
+        Ingrediente ingrediente = ingredienteDAO.buscarIngredientePorNombre("Melcoche", Unidad.GRAMO);
         
-//        System.out.println(ingrediente);
+        Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
+        
+        ingrediente = ingredienteDAO.modificarStockIngrediente(id, 25.00);
+        
+//        ingredienteDAO.eliminarIngrediente(id);
+        
+        
     }
 }

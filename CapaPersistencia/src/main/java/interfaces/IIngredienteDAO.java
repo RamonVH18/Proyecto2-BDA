@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import Enums.Unidad;
 import entidades.Ingrediente;
 import exception.IngredienteException;
 import java.util.List;
@@ -18,9 +19,11 @@ public interface IIngredienteDAO {
     
     public List<Ingrediente> buscarTodosLosIngredientes() throws IngredienteException;
     
-    public Ingrediente buscarIngredientePorNombre(String nombre);
+    public Ingrediente buscarIngredientePorNombre(String nombre, Unidad unidad) throws IngredienteException;
     
-    public Long obtenerIdIngrediente(Ingrediente ingrediente);
+    public Long obtenerIdIngrediente(Ingrediente ingrediente) throws IngredienteException;
     
-    public Ingrediente modificarStockIngrediente(Long idIngrediente, Double Stock);
+    public Ingrediente modificarStockIngrediente(Long idIngrediente, Double Stock) throws IngredienteException;
+    
+    public boolean eliminarIngrediente(Long idIngrediente) throws IngredienteException;
 }
