@@ -159,4 +159,61 @@ public class IngredienteBO implements IIngredienteBO {
         }
         
     }
+    
+    @Override
+    public boolean eliminarIngrediente(CantidadIngredienteDTO ingredienteDTO) throws IngredienteBOException {
+        try {
+            
+            Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
+            
+            Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
+            
+            if (ingredienteDAO.eliminarIngrediente(id)) {
+                return true;
+            } else {
+                throw new IngredienteBOException("No se pudo eliminar este ingrediente");
+            }
+            
+        } catch (Exception ex) {
+            throw new IngredienteBOException("No se pudo eliminar este ingrediente");
+        } 
+    }
+    
+    @Override
+    public boolean aumentarStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException {
+        try {
+            Double nuevoStock = (ingredienteDTO.getCantidadUsada() + stock);
+            
+            Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
+            
+            Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
+            
+            ingredienteDAO.modificarStockIngrediente(id, nuevoStock);
+            
+            return true;
+        } catch (IngredienteException ex) {
+            throw new IngredienteBOException("No se pudo agregar mas stock al inventario");
+        }
+    }
+    
+    @Override
+    public boolean disminuirStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException {
+        try {
+            Double nuevoStock = (ingredienteDTO.getCantidadUsada() - stock);
+            
+            if (nuevoStock < 0) {
+                throw new IngredienteBOException("Esta intentando quitar mas stock de la que hay disponible");
+            }
+            
+            Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
+            
+            Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
+            
+            ingredienteDAO.modificarStockIngrediente(id, nuevoStock);
+            
+            return true;
+        } catch (IngredienteException e) {
+            throw new IngredienteBOException("ERROR: " + e.getMessage());
+        }
+    }
 }

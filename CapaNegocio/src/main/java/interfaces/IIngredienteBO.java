@@ -18,4 +18,10 @@ public interface IIngredienteBO {
    
    public List<CantidadIngredienteDTO> obtenerIngredientesDisponibles() throws IngredienteBOException;
    
+   public boolean eliminarIngrediente(CantidadIngredienteDTO ingredienteDTO) throws IngredienteBOException;
+   
+   public boolean aumentarStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException;
+   
+   public boolean disminuirStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException;
+   
 }

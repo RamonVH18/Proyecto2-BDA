@@ -8,6 +8,8 @@ import BOs.IngredienteBO;
 import Control.ControlDeNavegacion;
 import Control.IControl;
 import DTOs.CantidadIngredienteDTO;
+import Enums.Unidad;
+import Exceptions.IngredienteBOException;
 import interfaces.IIngredienteBO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,6 +27,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +40,7 @@ public class VerIngredientes extends VentanaBase {
     private ControlDeNavegacion navegacion;
     private IIngredienteBO instanceBO;
     private JTable tablaIngredientes;
+    private CantidadIngredienteDTO ingredienteSeleccionado;
 
     /**
      * Creates new form VerIngredientes
@@ -130,9 +135,60 @@ public class VerIngredientes extends VentanaBase {
      */
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-        navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
-        navegacion.abrirVentana("Menu Ingredientes");
+        navegacion.registrarVentana("Menu de Ingredientes", new MenuIngredientes(control));
+        navegacion.abrirVentana("Menu de Ingredientes");
         navegacion.cerrarVentana("Ver Ingredientes");
+    }
+
+    private void botonAumentarMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        try {
+            String stockTexto = JOptionPane.showInputDialog(null, "Ingrese cuanto desea aumentar al stock: ", "");
+            if (!stockTexto.matches("^-?\\d+(\\.\\d+)?$")) {
+                JOptionPane.showMessageDialog(null, "La cantidad que ingreso es invalida", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Double cantidadUsada = Double.parseDouble(stockTexto);
+                if (instanceBO.aumentarStock(ingredienteSeleccionado, cantidadUsada)) {
+                    JOptionPane.showMessageDialog(null, "Se agrego mas stock exitosamente ", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarTabla();
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void botonDisminuirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        try {
+            String stockTexto = JOptionPane.showInputDialog(null, "Ingrese cuanto desea disminuir al stock: ", "");
+            if (!stockTexto.matches("^-?\\d+(\\.\\d+)?$")) {
+                JOptionPane.showMessageDialog(null, "La cantidad que ingreso es invalida", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Double cantidadUsada = Double.parseDouble(stockTexto);
+                if (instanceBO.aumentarStock(ingredienteSeleccionado, cantidadUsada)) {
+                    JOptionPane.showMessageDialog(null, "Se agrego mas stock exitosamente ", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarTabla();
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        try {
+            if (instanceBO.eliminarIngrediente(ingredienteSeleccionado)) {
+                actualizarTabla();
+                JOptionPane.showMessageDialog(null, "Se elimino exitosamente el ingrediente", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,7 +199,7 @@ public class VerIngredientes extends VentanaBase {
     private javax.swing.JLabel jLabelBuscador;
     private javax.swing.JTextField jTextFieldBuscador;
     // End of variables declaration//GEN-END:variables
-    
+
     /**
      * Metodo para generar la ventana de Ver ingredientes
      */
@@ -157,11 +213,12 @@ public class VerIngredientes extends VentanaBase {
         panelPrincipal.add(configurarPanelInferior(), BorderLayout.SOUTH);
         add(panelPrincipal, BorderLayout.CENTER);
     }
-    
+
     /**
-     * Metodo para configurar el Panel Superior
-     * Aqui se encontrara el Label del buscador y el text field que sirve de filtro
-     * @return 
+     * Metodo para configurar el Panel Superior Aqui se encontrara el Label del
+     * buscador y el text field que sirve de filtro
+     *
+     * @return
      */
     private JPanel configurarPanelSuperior() {
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -170,16 +227,18 @@ public class VerIngredientes extends VentanaBase {
         /**
          * ESTE METODO ES CLAVE
          */
-        configurarBuscador(jTextFieldBuscador); 
+        configurarBuscador(jTextFieldBuscador);
         panelSuperior.add(jLabelBuscador);
         panelSuperior.add(jTextFieldBuscador);
 
         return panelSuperior;
     }
+
     /**
-     * Metodo para configurar el panel central
-     * En este panel se encontrara la tabla con todos los ingredientes disponibles
-     * @return 
+     * Metodo para configurar el panel central En este panel se encontrara la
+     * tabla con todos los ingredientes disponibles
+     *
+     * @return
      */
     private JPanel configurarPanelCentral() {
         JPanel panelCentral = new JPanel();
@@ -203,10 +262,12 @@ public class VerIngredientes extends VentanaBase {
 
         return panelCentral;
     }
+
     /**
-     * Metodo para configurar la tabla
-     * Aqui lo que se hace es agregarle el modelo a la tabla metiendolo a un scrollPane y dandole colores bonitos
-     * @return 
+     * Metodo para configurar la tabla Aqui lo que se hace es agregarle el
+     * modelo a la tabla metiendolo a un scrollPane y dandole colores bonitos
+     *
+     * @return
      */
     private JScrollPane configurarTabla() {
         // Tabla de ingredientes
@@ -217,17 +278,21 @@ public class VerIngredientes extends VentanaBase {
         // Estilizar la tabla
         tablaIngredientes.setSelectionBackground(Color.GREEN);
         tablaIngredientes.setSelectionForeground(Color.BLACK);
+        seleccionTabla(tablaIngredientes);
         return scrollPane;
     }
+
     /**
      * En este metodo se cargan los datos de la tabla
+     *
      * @param ingredientes
-     * @return 
+     * @return
      */
     private DefaultTableModel cargarDatosTabla(List<CantidadIngredienteDTO> ingredientes) {
         /**
-         * Este try lo que hace es guardar dentro de ingredientes todos los ingredientes existentes
-         * Si hay un error se abrira un JoptionPane y se regresara a la ventana pasada
+         * Este try lo que hace es guardar dentro de ingredientes todos los
+         * ingredientes existentes Si hay un error se abrira un JoptionPane y se
+         * regresara a la ventana pasada
          */
         try {
             ingredientes = instanceBO.obtenerIngredientesDisponibles();
@@ -237,9 +302,10 @@ public class VerIngredientes extends VentanaBase {
             navegacion.abrirVentana("Menu Ingredientes");
             navegacion.cerrarVentana("Ver Ingredientes");
         }
-        
+
         /**
-         * Creacion de los filtros, en esta parte se filtran los ingredientes esto tomando en cuenta lo que sea que este escrito en el buscador
+         * Creacion de los filtros, en esta parte se filtran los ingredientes
+         * esto tomando en cuenta lo que sea que este escrito en el buscador
          */
         List<CantidadIngredienteDTO> ingredientesFiltrados = new ArrayList<>();
         String textoFiltro = jTextFieldBuscador.getText();
@@ -249,14 +315,15 @@ public class VerIngredientes extends VentanaBase {
             }
         }
         /**
-         * Aqui se crea el arreglo de dos dimensiones donde se va a guardar toda la informacion que va a contener la tabla
+         * Aqui se crea el arreglo de dos dimensiones donde se va a guardar toda
+         * la informacion que va a contener la tabla
          */
         String[] columnas = {"Ingrediente", "Unidad de medida", "Stock"};
         Object[][] datos = new Object[ingredientesFiltrados.size()][3];
-        for (int i = 0; i < ingredientesFiltrados.size(); i++) {   
-                datos[i][0] = ingredientesFiltrados.get(i).getNombre();
-                datos[i][1] = ingredientesFiltrados.get(i).getUnidadMedida();
-                datos[i][2] = ingredientesFiltrados.get(i).getCantidadUsada();   
+        for (int i = 0; i < ingredientesFiltrados.size(); i++) {
+            datos[i][0] = ingredientesFiltrados.get(i).getNombre();
+            datos[i][1] = ingredientesFiltrados.get(i).getUnidadMedida();
+            datos[i][2] = ingredientesFiltrados.get(i).getCantidadUsada();
         }
         /**
          * Creacion del modelo de la tabla
@@ -265,9 +332,10 @@ public class VerIngredientes extends VentanaBase {
 
         return modelo;
     }
-    
+
     /**
-     * Metodo para actualizar la tabla, lo que hace este metodo es volver a llama al metodo de cargarTabla y repinta la tabla
+     * Metodo para actualizar la tabla, lo que hace este metodo es volver a
+     * llama al metodo de cargarTabla y repinta la tabla
      */
     private void actualizarTabla() {
         List<CantidadIngredienteDTO> ingredientes = new ArrayList<>();
@@ -275,16 +343,22 @@ public class VerIngredientes extends VentanaBase {
         tablaIngredientes.revalidate();
         tablaIngredientes.repaint();
     }
+
     /**
-     * Configura el panel Inferior, en este panel se ingresan los tres botones, aumentar stock, disminuir stock y el de eliminar ingrediente
-     * @return 
+     * Configura el panel Inferior, en este panel se ingresan los tres botones,
+     * aumentar stock, disminuir stock y el de eliminar ingrediente
+     *
+     * @return
      */
     private JPanel configurarPanelInferior() {
         // Botones
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnAumentarStock = new JButton("Aumentar Stock");
+        generarBotonAumentar(btnAumentarStock);
         btnDisminuirStock = new JButton("Disminuir Stock");
+        generarBotonDisminuir(btnDisminuirStock);
         btnEliminar = new JButton("Eliminar");
+        generarBotonEliminar(btnEliminar);
 
         panelBotones.add(btnAumentarStock);
         panelBotones.add(btnDisminuirStock);
@@ -292,12 +366,13 @@ public class VerIngredientes extends VentanaBase {
 
         return panelBotones;
     }
-    
+
     /**
-     * METODO CLAVE
-     * En este metodo sirve para otorgarle funcionalidades al buscador 
-     * y que asi cuando se escriba algo en el textField se actualice la tabla
-     * @param buscador 
+     * METODO CLAVE En este metodo sirve para otorgarle funcionalidades al
+     * buscador y que asi cuando se escriba algo en el textField se actualice la
+     * tabla
+     *
+     * @param buscador
      */
     private void configurarBuscador(JTextField buscador) {
         buscador.getDocument().addDocumentListener(new DocumentListener() {
@@ -316,6 +391,29 @@ public class VerIngredientes extends VentanaBase {
                 actualizarTabla();
             }
 
+        });
+    }
+
+    private void seleccionTabla(JTable tabla) {
+        tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) { // Evitar múltiples eventos al mover el cursor
+                    int filaSeleccionada = tabla.getSelectedRow();
+
+                    if (filaSeleccionada != -1) {
+                        Object nombre = tabla.getValueAt(filaSeleccionada, 0);
+                        Object unidad = tabla.getValueAt(filaSeleccionada, 1);
+                        Object cantidad = tabla.getValueAt(filaSeleccionada, 2);
+
+                        ingredienteSeleccionado = new CantidadIngredienteDTO(
+                                (String) nombre,
+                                (Unidad) unidad,
+                                (Double) cantidad
+                        );
+                    }
+                }
+            }
         });
     }
 
@@ -340,4 +438,36 @@ public class VerIngredientes extends VentanaBase {
         panelSur.repaint();
     }
 
+    private void generarBotonAumentar(JButton boton) {
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonAumentarMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+    }
+
+    private void generarBotonDisminuir(JButton boton) {
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonDisminuirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+    }
+
+    private void generarBotonEliminar(JButton boton) {
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonEliminarMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+    }
 }

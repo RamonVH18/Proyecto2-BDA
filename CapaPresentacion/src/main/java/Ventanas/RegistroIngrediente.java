@@ -132,8 +132,8 @@ public class RegistroIngrediente extends VentanaBase {
      */
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-        navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
-        navegacion.abrirVentana("Menu Ingredientes");
+        navegacion.registrarVentana("Menu de Ingredientes", new MenuIngredientes(control));
+        navegacion.abrirVentana("Menu de Ingredientes");
         navegacion.cerrarVentana("Registro Ingrediente");
     }
     
