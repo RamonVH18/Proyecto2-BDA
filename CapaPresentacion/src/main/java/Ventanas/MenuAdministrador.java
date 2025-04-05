@@ -131,6 +131,7 @@ public class MenuAdministrador extends VentanaBase {
         btnIngredientes = new JButton("Modulo de Ingredientes");
         configuracionBotonModulo(btnIngredientes, "Menu de Ingredientes", TipoVentana.INGREDIENTES);
         btnProductos = new JButton("Modulo de Productos");
+        configuracionBotonModulo(btnProductos, "Menu de Productos", TipoVentana.PRODUCTOS);
         btnReportes = new JButton("Modulo de Reportes");
         generarPanelCentral(panelCentral);
         generarBotonRegreso(btnRegreso);

@@ -10,7 +10,9 @@ import Ventanas.InicioSesion;
 import Ventanas.MenuAdministrador;
 import Ventanas.MenuComandas;
 import Ventanas.MenuIngredientes;
+import Ventanas.MenuProductos;
 import Ventanas.RegistroIngrediente;
+import Ventanas.RegistroProducto;
 import Ventanas.VentanaBase;
 import Ventanas.VerIngredientes;
 
@@ -30,6 +32,10 @@ public class VentanaFactory {
                 return new MenuAdministrador(control);
             case COMANDAS:
                 return new MenuComandas(control);
+            case PRODUCTOS:
+                return new MenuProductos(control);
+            case REGISTRO_PRODUCTO:
+                return new RegistroProducto(control);
             case INGREDIENTES:
                 return new MenuIngredientes(control);
             case REGISTRO_INGREDIENTES:
