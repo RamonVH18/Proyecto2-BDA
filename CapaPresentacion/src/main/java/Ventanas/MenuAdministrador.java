@@ -126,6 +126,7 @@ public class MenuAdministrador extends VentanaBase {
         JPanel panelCentral = new JPanel();
         btnRegreso = new JButton("LOG OUT");
         btnClientes = new JButton("Modulo de Clientes Frecuentes");
+        configuracionBotonModulo(btnClientes, "Menu de Clientes Frecuentes", TipoVentana.CLIENTES);
         btnComandas = new JButton("Modulo de Comandas");
         configuracionBotonModulo(btnComandas, "Menu Comandas", TipoVentana.COMANDAS);
         btnIngredientes = new JButton("Modulo de Ingredientes");
