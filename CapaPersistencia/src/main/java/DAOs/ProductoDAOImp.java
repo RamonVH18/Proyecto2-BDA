@@ -17,8 +17,20 @@ import javax.persistence.EntityManager;
  * @author rodri
  */
 public class ProductoDAOImp implements IProducto{
+    
+    private static ProductoDAOImp instanceDAO;
 
     EntityManager em = Conexion.crearConexion();
+
+    private ProductoDAOImp() {
+    }
+    
+    public static ProductoDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new ProductoDAOImp();
+        }
+        return instanceDAO;
+    }
     
     @Override
     public Producto registrarProducto(Producto producto) throws ProductoException {
@@ -50,7 +62,7 @@ public class ProductoDAOImp implements IProducto{
              
            crearConexion();
            
-           return em.createQuery("Select p FROM Producto")
+           return em.createQuery("Select p FROM Producto p")
                     .getResultList();
         } catch (Exception e){
             em.getTransaction().rollback();
@@ -83,7 +95,7 @@ public class ProductoDAOImp implements IProducto{
             //Validamos que la conexion si o si se encuentra abierta antes del iniciar
             crearConexion();
             
-            return em.createQuery("SELECT p FROM Producto P WHERE p.tipo = :tipo", Producto.class)
+            return em.createQuery("SELECT p FROM Producto p WHERE p.tipo = :tipo", Producto.class)
                     .setParameter("tipo", tipo)
                     .getResultList();
             

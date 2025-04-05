@@ -16,13 +16,25 @@ import javax.persistence.EntityManager;
  * @author rodri
  */
 public class IngredienteProductoDAOImp implements IIngredienteProducto{
+    
+    private static IngredienteProductoDAOImp instanceDAO;
 
     EntityManager em = Conexion.crearConexion();
+    
+    private IngredienteProductoDAOImp() {
+    }
+    
+    public static IngredienteProductoDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new IngredienteProductoDAOImp();
+        }
+        return instanceDAO;
+    }
     
     @Override
     public IngredienteProducto registrarIngredienteProducto(IngredienteProducto ingredienteProducto) throws IngredienteProductoException {
         try {
-            crearConexion();
+            crearConexion(); //Metodo para no andar copia y pega todo el rato
             //Comensar la transacción
             em.getTransaction().begin();
 
@@ -39,7 +51,7 @@ public class IngredienteProductoDAOImp implements IIngredienteProducto{
             em.getTransaction().rollback();
             throw new IngredienteProductoException("No se pudo registrar el ingrediente para el producto");
         } finally{
-            cerrarConexion();
+            cerrarConexion(); //Igual para no andar copia y pega todo el rato
         }
     }
 
@@ -55,7 +67,7 @@ public class IngredienteProductoDAOImp implements IIngredienteProducto{
             
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new IngredienteProductoException("No se eliminó el videojuego");
+            throw new IngredienteProductoException(" No se eliminó el producto" + e.getMessage());
         } finally{
             //Independientemente de lo que pase cerramos la conexion
             cerrarConexion();

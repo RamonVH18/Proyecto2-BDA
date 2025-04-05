@@ -31,7 +31,7 @@ public class IngredienteProducto implements Serializable {
      * en un producto
      */
     @Column (name = "Cantidad_Ingrediente", nullable = false)
-    private String cantidad;
+    private Integer cantidad;
     
     @ManyToOne
     @JoinColumn(name = "idProducto", nullable = false)
@@ -51,7 +51,7 @@ public class IngredienteProducto implements Serializable {
      * @param id
      * @param cantidad 
      */
-    public IngredienteProducto(Long id, String cantidad, Producto producto, Ingrediente ingrediente) {
+    public IngredienteProducto(Long id, Integer cantidad, Producto producto, Ingrediente ingrediente) {
         this.id = id;
         this.cantidad = cantidad;
         this.producto = producto;
@@ -61,7 +61,7 @@ public class IngredienteProducto implements Serializable {
      * Constructor con atributos excepto ID
      * @param cantidad 
      */
-    public IngredienteProducto(String cantidad, Producto producto, Ingrediente ingrediente) {
+    public IngredienteProducto(Integer cantidad, Producto producto, Ingrediente ingrediente) {
         this.cantidad = cantidad;
         this.producto = producto;
         this.ingrediente = ingrediente;
@@ -79,11 +79,11 @@ public class IngredienteProducto implements Serializable {
         this.id = id;
     }
 
-    public String getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
