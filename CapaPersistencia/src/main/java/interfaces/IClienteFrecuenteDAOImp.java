@@ -5,7 +5,7 @@
 package interfaces;
 
 import entidades.ClienteFrecuente;
-import exception.ClienteFrecuenteException;
+import exception.ClienteFrecuenteDAOException;
 import java.util.List;
 
 /**
@@ -23,42 +23,42 @@ public interface IClienteFrecuenteDAOImp {
      *
      * @param cliente el objeto ClienteFrecuente que se desea guardar
      * @return el mismo objeto cliente con los datos registrados
-     * @throws ClienteFrecuenteException si ocurre un error durante el guardado
+     * @throws ClienteFrecuenteDAOException si ocurre un error durante el guardado
      */
-    public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws ClienteFrecuenteException;
+    public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws ClienteFrecuenteDAOException;
 
     /**
      * Recupera todos los clientes frecuentes almacenados en la base de datos.
      *
      * @return una lista con todos los clientes frecuentes registrados
-     * @throws ClienteFrecuenteException si ocurre un error durante la busqueda
+     * @throws ClienteFrecuenteDAOException si ocurre un error durante la busqueda
      */
-    public List<ClienteFrecuente> buscarTodos() throws ClienteFrecuenteException;
+    public List<ClienteFrecuente> buscarTodos() throws ClienteFrecuenteDAOException;
 
     /**
      * Busca un cliente frecuente por su nombre completo.
      *
      * @param nombre el nombre del cliente a buscar
      * @return el cliente encontrado, o null si no se encuentra
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se encuentra
      */
-    public ClienteFrecuente buscarPorNombre(String nombre) throws ClienteFrecuenteException;
+    public ClienteFrecuente buscarPorNombre(String nombre) throws ClienteFrecuenteDAOException;
 
     /**
      * Busca un cliente frecuente por su numero de telefono.
      *
      * @param telefono el numero de telefono a buscar
      * @return el cliente encontrado, o null si no se encuentra
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se encuentra
      */
-    public ClienteFrecuente buscarPorTelefono(String telefono) throws ClienteFrecuenteException;
+    public ClienteFrecuente buscarPorTelefono(String telefono) throws ClienteFrecuenteDAOException;
 
     /**
      * Busca un cliente frecuente por su correo electronico.
      *
      * @param correo el correo del cliente a buscar
      * @return el cliente encontrado, o null si no se encuentra
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se encuentra
      */
-    public ClienteFrecuente buscarPorCorreo(String correo) throws ClienteFrecuenteException;
+    public ClienteFrecuente buscarPorCorreo(String correo) throws ClienteFrecuenteDAOException;
 }

@@ -6,10 +6,11 @@ package DAOs;
 
 import conexion.Conexion;
 import entidades.ClienteFrecuente;
-import exception.ClienteFrecuenteException;
+import exception.ClienteFrecuenteDAOException;
 import interfaces.IClienteFrecuenteDAOImp;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 /**
  * Implementación del DAO para ClienteFrecuente. Utiliza el patron Singleton
@@ -49,10 +50,10 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
      *
      * @param clienteFrecuente Objeto a guardar.
      * @return ClienteFrecuente guardado.
-     * @throws ClienteFrecuenteException si ocurre un error al guardar.
+     * @throws ClienteFrecuenteDAOException si ocurre un error al guardar.
      */
     @Override
-    public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente clienteFrecuente) throws ClienteFrecuenteException {
+    public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente clienteFrecuente) throws ClienteFrecuenteDAOException {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
@@ -69,7 +70,7 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
 
         } catch (Exception e) {
             em.getTransaction().rollback();
-            throw new ClienteFrecuenteException("Error al guardar el cliente frecuente: " + e.getMessage());
+            throw new ClienteFrecuenteDAOException("Error al guardar el cliente frecuente: " + e.getMessage());
         } finally {
             em.close();
         }
@@ -79,16 +80,16 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
      * Metodo para obtener todos los clientes frecuentes registrados.
      *
      * @return Lista de clientes frecuentes.
-     * @throws ClienteFrecuenteException si ocurre un error en la consulta.
+     * @throws ClienteFrecuenteDAOException si ocurre un error en la consulta.
      */
     @Override
-    public List<ClienteFrecuente> buscarTodos() throws ClienteFrecuenteException {
+    public List<ClienteFrecuente> buscarTodos() throws ClienteFrecuenteDAOException {
         EntityManager em = Conexion.crearConexion();
         try {
             return em.createQuery("SELECT cf FROM ClienteFrecuente cf")
                     .getResultList(); // Ejecuta la consulta JPQL
         } catch (Exception e) {
-            throw new ClienteFrecuenteException("Error al buscar clientes frecuentes: " + e.getMessage());
+            throw new ClienteFrecuenteDAOException("Error al buscar clientes frecuentes: " + e.getMessage());
         } finally {
             em.close(); // Cierra el EntityManager
         }
@@ -99,17 +100,20 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
      *
      * @param nombre Nombre del cliente.
      * @return ClienteFrecuente encontrado.
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra.
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se
+     * encuentra.
      */
     @Override
-    public ClienteFrecuente buscarPorNombre(String nombre) throws ClienteFrecuenteException {
+    public ClienteFrecuente buscarPorNombre(String nombre) throws ClienteFrecuenteDAOException {
         EntityManager em = Conexion.crearConexion();
         try {
             return em.createQuery("SELECT cf FROM ClienteFrecuente cf WHERE cf.nombreCompleto = :nombre", ClienteFrecuente.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
-            throw new ClienteFrecuenteException("Error al buscar cliente frecuente por nombre: " + e.getMessage());
+            throw new ClienteFrecuenteDAOException("Error al buscar cliente frecuente por nombre: " + e.getMessage());
         } finally {
             em.close();
         }
@@ -120,10 +124,11 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
      *
      * @param telefono Telefono del cliente.
      * @return ClienteFrecuente encontrado.
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra.
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se
+     * encuentra.
      */
     @Override
-    public ClienteFrecuente buscarPorTelefono(String telefono) throws ClienteFrecuenteException {
+    public ClienteFrecuente buscarPorTelefono(String telefono) throws ClienteFrecuenteDAOException {
         EntityManager em = Conexion.crearConexion();
         try {
             // Encriptar el telefono que se recibio como parametro
@@ -133,8 +138,10 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
                     .setParameter("telefono", telefonoEncriptado)
                     .getSingleResult();
 
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
-            throw new ClienteFrecuenteException("Error al buscar cliente frecuente por telefono: " + e.getMessage());
+            throw new ClienteFrecuenteDAOException("Error al buscar cliente frecuente por telefono: " + e.getMessage());
         } finally {
             em.close();
         }
@@ -145,17 +152,20 @@ public class ClienteFrecuenteDAOImp implements IClienteFrecuenteDAOImp {
      *
      * @param correo Correo del cliente.
      * @return ClienteFrecuente encontrado.
-     * @throws ClienteFrecuenteException si ocurre un error o no se encuentra.
+     * @throws ClienteFrecuenteDAOException si ocurre un error o no se
+     * encuentra.
      */
     @Override
-    public ClienteFrecuente buscarPorCorreo(String correo) throws ClienteFrecuenteException {
+    public ClienteFrecuente buscarPorCorreo(String correo) throws ClienteFrecuenteDAOException {
         EntityManager em = Conexion.crearConexion();
         try {
             return em.createQuery("SELECT cf FROM ClienteFrecuente cf WHERE cf.correo = :correo", ClienteFrecuente.class)
                     .setParameter("correo", correo)
                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
-            throw new ClienteFrecuenteException("Error al buscar cliente frecuente por correo: " + e.getMessage());
+            throw new ClienteFrecuenteDAOException("Error al buscar cliente frecuente por correo: " + e.getMessage());
         } finally {
             em.close();
         }

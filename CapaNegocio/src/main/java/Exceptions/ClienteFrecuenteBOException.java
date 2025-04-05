@@ -2,22 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package exception;
+package Exceptions;
 
 /**
  * Esta clase representa una excepcion personalizada para errores que ocurren
- * durante las operaciones relacionadas con la entidad ClienteFrecuente.
+ * durante las operaciones relacionadas con la clase ClienteFrecuenteBO.
  *
  * @author Daniel Miribe
  */
-public class ClienteFrecuenteException extends Exception {
+public class ClienteFrecuenteBOException extends Exception {
 
     /**
      * Constructor que permite lanzar la excepcion con un mensaje personalizado.
      *
      * @param message Descripcion del error ocurrido
      */
-    public ClienteFrecuenteException(String message) {
+    public ClienteFrecuenteBOException(String message) {
         super(message);
     }
 
@@ -28,7 +28,7 @@ public class ClienteFrecuenteException extends Exception {
      * @param message Descripcion del error
      * @param cause Causa original del error (por ejemplo, una excepcion de JPA)
      */
-    public ClienteFrecuenteException(String message, Throwable cause) {
+    public ClienteFrecuenteBOException(String message, Throwable cause) {
         super(message, cause);
     }
 

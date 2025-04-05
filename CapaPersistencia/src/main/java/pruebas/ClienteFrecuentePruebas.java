@@ -6,7 +6,7 @@ package pruebas;
 
 import DAOs.ClienteFrecuenteDAOImp;
 import entidades.ClienteFrecuente;
-import exception.ClienteFrecuenteException;
+import exception.ClienteFrecuenteDAOException;
 import java.time.LocalDateTime;
 
 /**
@@ -34,7 +34,7 @@ public class ClienteFrecuentePruebas {
             System.out.println("\nCliente 2: " + clienteFrecuente2);
             System.out.println("\nCliente 3: " + clienteFrecuente3);
 
-        } catch (ClienteFrecuenteException e) {
+        } catch (ClienteFrecuenteDAOException e) {
             System.err.println("Ocurrio un error durante la prueba: " + e.getMessage());
         }
     }

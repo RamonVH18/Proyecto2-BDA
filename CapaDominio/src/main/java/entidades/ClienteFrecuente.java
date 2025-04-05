@@ -56,13 +56,13 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     /**
      * Constructor que inicializa todos los parametros de la entidad
      *
-     * @param numVisitas
-     * @param totalGastado
-     * @param puntosDeFidelidad
      * @param nombreCompleto
      * @param numeroTelefono
      * @param correo
      * @param fechaRegistro
+     * @param numVisitas
+     * @param totalGastado
+     * @param puntosDeFidelidad
      */
     public ClienteFrecuente(String nombreCompleto, String numeroTelefono, String correo, LocalDateTime fechaRegistro,
             Integer numVisitas, Double totalGastado, Integer puntosDeFidelidad) {
