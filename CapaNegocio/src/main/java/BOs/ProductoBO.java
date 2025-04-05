@@ -71,7 +71,7 @@ public class ProductoBO implements IProductoBO{
             ProductoDTO productoNuevo = new ProductoDTO(nombre, precioProducto, tipo);
             Producto producto = mapper.toEntity(productoNuevo);
             /**
-             * Se llama a un metodo de la DAO para confirmar que el ingrediente no exista
+             * Se llama a un metodo de la DAO para confirmar que el producto no exista
              */
             Producto productoViejo = productoDAO.buscarPorNombre(nombre);
             if (productoViejo != null) {
@@ -89,4 +89,14 @@ public class ProductoBO implements IProductoBO{
         }
     }
     
+    @Override
+    public boolean buscarNombre(String nombre) throws ProductoBOException {
+        try{
+         productoDAO.buscarPorNombre(nombre);
+         return true;
+        } catch (ProductoException ex) {
+            Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ProductoBOException("Error al buscar producto " + ex.getMessage());
+        }
+    }
 }

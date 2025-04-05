@@ -5,12 +5,14 @@
 package DAOs;
 
 import Enums.Tipo;
+import UtileriasPersistencia.Utilerias;
 import conexion.Conexion;
 import entidades.Producto;
 import exception.ProductoException;
 import interfaces.IProducto;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ProductoDAOImp implements IProducto{
     @Override
     public Producto registrarProducto(Producto producto) throws ProductoException {
         try {
-            crearConexion();
+            em = Utilerias.validarConexion(em);
             //Comensar la transacción
             em.getTransaction().begin();
 
@@ -52,7 +54,7 @@ public class ProductoDAOImp implements IProducto{
             em.getTransaction().rollback();
             throw new ProductoException("No se pudo registrar el producto");
         } finally{
-            cerrarConexion();
+            Utilerias.cerrarConexion(em);
         }
     }
     
@@ -80,9 +82,9 @@ public class ProductoDAOImp implements IProducto{
             return (Producto) em.createQuery("Select p FROM Producto p WHERE p.nombre = :nombre", Producto.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
-            
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
-            em.getTransaction().rollback();
             throw new ProductoException("No se encontró el Producto: " + e.getMessage());
         } finally {
             cerrarConexion();

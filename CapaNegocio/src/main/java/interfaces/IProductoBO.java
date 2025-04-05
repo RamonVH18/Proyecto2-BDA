@@ -16,4 +16,5 @@ public interface IProductoBO {
     
     public ProductoDTO registrarProducto (String nombre, String precio, Tipo tipo) throws ProductoBOException;
     
+    public boolean buscarNombre(String nombre) throws ProductoBOException;
 }
