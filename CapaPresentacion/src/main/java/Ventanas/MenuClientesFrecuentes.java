@@ -4,17 +4,34 @@
  */
 package Ventanas;
 
+import Control.ControlDeNavegacion;
+import Control.TipoVentana;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import Control.IControl;
+import Control.VentanaFactory;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 /**
  *
- * @author Daniel M
+ * @author Daniel Miribe
  */
-public class MenuClientesFrecuentes extends javax.swing.JFrame {
+public class MenuClientesFrecuentes extends VentanaBase {
+
+    private Control.ControlDeNavegacion navegacion;
 
     /**
      * Creates new form MenuClientesFrecuentes
      */
-    public MenuClientesFrecuentes() {
-        initComponents();
+    public MenuClientesFrecuentes(IControl control) {
+        super(control, "Menu de Clientes Frecuentes");
+        navegacion = ControlDeNavegacion.getInstance();
+        generarMenuClientesFrecuentes();
     }
 
     /**
@@ -26,22 +43,138 @@ public class MenuClientesFrecuentes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnBuscarClienteFrecuente = new javax.swing.JButton();
+        btnRegistrarClienteFrecuente = new javax.swing.JButton();
+        btnRegreso = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnBuscarClienteFrecuente.setText("jButton1");
+
+        btnRegistrarClienteFrecuente.setText("jButton2");
+
+        btnRegreso.setText("jButton3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(btnBuscarClienteFrecuente)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnRegistrarClienteFrecuente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnRegreso)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarClienteFrecuente)
+                    .addComponent(btnRegistrarClienteFrecuente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addComponent(btnRegreso)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Menu Administrador", new MenuAdministrador(control));
+        navegacion.abrirVentana("Menu Administrador");
+        navegacion.cerrarVentana("Menu de Clientes Frecuentes");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarClienteFrecuente;
+    private javax.swing.JButton btnRegistrarClienteFrecuente;
+    private javax.swing.JButton btnRegreso;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * Metodo necesario para la generacion del Menu de Clientes Frecuentes
+     */
+    private void generarMenuClientesFrecuentes() {
+        JPanel panelCentral = new JPanel();
+        btnRegreso = new JButton("REGRESAR");
+        btnRegistrarClienteFrecuente = new JButton("Registrar Cliente Frecuente");
+        configuracionBotonModulo(btnRegistrarClienteFrecuente, "Registro Cliente", TipoVentana.REGISTRO_CLIENTE);
+        btnBuscarClienteFrecuente = new JButton("Buscar Cliente Frecuente");
+        configuracionBotonModulo(btnBuscarClienteFrecuente, "Buscar Cliente", TipoVentana.BUSCAR_CLIENTE);
+
+        generarPanelCentral(panelCentral);
+        generarBotonRegreso(btnRegreso);
+    }
+
+    /**
+     * Metodo que se encarga de generar el panel central donde estaran los
+     * botones de seleccionar opcion
+     *
+     * @param panelCentral
+     */
+    private void generarPanelCentral(JPanel panelCentral) {
+        panelCentral.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        panelCentral.add(btnRegistrarClienteFrecuente, gbc);
+
+        gbc.gridx = 1;
+        panelCentral.add(btnBuscarClienteFrecuente, gbc);
+
+        panelCentral.revalidate();
+        panelCentral.repaint();
+        add(panelCentral, BorderLayout.CENTER);
+    }
+
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     *
+     * @param boton
+     */
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
+
+    /**
+     * Metodo que se encarga de configura los botones para selecionar una opcion
+     * de ventana
+     *
+     * @param boton
+     * @param ventana
+     * @param tipo
+     */
+    private void configuracionBotonModulo(JButton boton, String ventana, TipoVentana tipo) {
+        boton.setPreferredSize(new Dimension(200, 100));
+        VentanaFactory fabrica = new VentanaFactory();
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                navegacion.registrarVentana(ventana, fabrica.crearVentana(tipo));
+                navegacion.abrirVentana(ventana);
+                navegacion.cerrarVentana("Menu de Clientes Frecuentes");
+            }
+        });
+    }
 }

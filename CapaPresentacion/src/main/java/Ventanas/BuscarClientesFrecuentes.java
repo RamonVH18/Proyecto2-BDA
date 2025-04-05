@@ -6,7 +6,7 @@ package Ventanas;
 
 /**
  *
- * @author Daniel M
+ * @author Daniel Miribe
  */
 public class BuscarClientesFrecuentes extends javax.swing.JFrame {
 

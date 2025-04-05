@@ -4,17 +4,44 @@
  */
 package Ventanas;
 
+import BOs.ClienteFrecuenteBO;
+import Control.ControlDeNavegacion;
+import Control.IControl;
+import Exceptions.ClienteFrecuenteBOException;
+import interfaces.IClienteFrecuenteBO;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 /**
  *
- * @author Daniel M
+ * @author Daniel Miribe
  */
-public class RegistroClientesFrecuentes extends javax.swing.JFrame {
+public class RegistroClientesFrecuentes extends VentanaBase {
+
+    private Control.ControlDeNavegacion navegacion;
+    private IClienteFrecuenteBO instanceBO;
 
     /**
      * Creates new form RegistroClientesFrecuentes
      */
-    public RegistroClientesFrecuentes() {
-        initComponents();
+    public RegistroClientesFrecuentes(IControl control) {
+        super(control, "Registro Cliente Frecuente");
+        navegacion = ControlDeNavegacion.getInstance();
+        instanceBO = ClienteFrecuenteBO.getInstanceBO();
+        generarRegistroClienteFrecuente();
     }
 
     /**
@@ -26,22 +53,191 @@ public class RegistroClientesFrecuentes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelNombreCompleto = new javax.swing.JLabel();
+        jTextFieldNombreCompleto = new javax.swing.JTextField();
+        jLabelTelefono = new javax.swing.JLabel();
+        jTextFieldTelefono = new javax.swing.JTextField();
+        jLabelCorreo = new javax.swing.JLabel();
+        jTextFieldCorreo = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton();
+        btnRegreso = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelNombreCompleto.setText("jLabel1");
+
+        jTextFieldNombreCompleto.setText("jTextField1");
+
+        jLabelTelefono.setText("jLabel2");
+
+        jTextFieldTelefono.setText("jTextField2");
+
+        jLabelCorreo.setText("jLabel3");
+
+        jTextFieldCorreo.setText("jTextField3");
+
+        btnRegistrar.setText("jButton1");
+
+        btnRegreso.setText("jButton2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegistrar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelCorreo)
+                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelTelefono)
+                                .addComponent(jTextFieldNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelNombreCompleto))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegreso)))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabelNombreCompleto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelTelefono)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelCorreo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(btnRegistrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegreso)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Menu de Clientes Frecuentes", new MenuClientesFrecuentes(control));
+        navegacion.abrirVentana("Menu de Clientes Frecuentes");
+        navegacion.cerrarVentana("Registro Cliente Frecuente");
+    }
+    
+    private void botonAñadirMouseClicked(MouseEvent evt) {
+        try {
+            instanceBO.registrarClienteFrecuente(jTextFieldNombreCompleto.getText(), jTextFieldTelefono.getText(), jTextFieldCorreo.getText());
+            
+            JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente", "Cliente Frecuente", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ClienteFrecuenteBOException | HeadlessException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnRegreso;
+    private javax.swing.JLabel jLabelCorreo;
+    private javax.swing.JLabel jLabelNombreCompleto;
+    private javax.swing.JLabel jLabelTelefono;
+    private javax.swing.JTextField jTextFieldCorreo;
+    private javax.swing.JTextField jTextFieldNombreCompleto;
+    private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void generarRegistroClienteFrecuente() {
+        JPanel panelCentral = new JPanel();
+        panelCentral.setLayout(new GridLayout(0, 1, 20, 20));
+        panelCentral.setPreferredSize(new Dimension(300, 200));
+
+        btnRegreso = new JButton("REGRESAR");
+        generarBotonRegreso(btnRegreso);
+        
+        btnRegistrar = new JButton("REGISTRAR");
+        generarBotonRegistrar(btnRegistrar);
+
+        jLabelNombreCompleto = new JLabel("Nombre completo:");
+        jTextFieldNombreCompleto = new JTextField();
+        jLabelTelefono = new JLabel("Numero de telefono:");
+        jTextFieldTelefono = new JTextField();
+        jLabelCorreo = new JLabel("Correo electronico:");
+        jTextFieldCorreo = new JTextField();
+
+        panelCentral.add(generacionPanel(jLabelNombreCompleto, jTextFieldNombreCompleto));
+        panelCentral.add(generacionPanel(jLabelTelefono, jTextFieldTelefono));
+        panelCentral.add(generacionPanel(jLabelCorreo, jTextFieldCorreo));
+        panelCentral.add(btnRegistrar);
+        
+        generarPanelContenedor(panelCentral);
+
+        revalidate();
+        repaint();
+    }
+    
+    private JPanel generacionPanel(JLabel label, JTextField textField) {
+        JPanel panel = new JPanel();
+        Font fuente = new Font("Arial", Font.BOLD, 18);
+        label.setFont(fuente);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        textField.setFont(fuente);
+        textField.setPreferredSize(new Dimension(100, 25));
+        panel.setLayout(new GridLayout(0, 1, 5, 5));
+        panel.setMaximumSize(new Dimension(100, 500));
+        panel.add(label);
+        panel.add(textField);
+        return panel;
+    }
+    
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
+    
+    private void generarBotonRegistrar(JButton boton) {
+        boton.setPreferredSize(new Dimension(75, 40));
+        boton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                botonAñadirMouseClicked(evt);
+            }
+        });
+    }
+    
+    private void generarPanelContenedor(JPanel panelCentral) {
+        JPanel panelContenedor = new JPanel();
+        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));
+        
+        // Panel de margen para centrar
+        JPanel espacioIzquierdo = new JPanel();
+        espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        JPanel espacioDerecho = new JPanel();
+        espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+        
+        panelContenedor.add(espacioIzquierdo);
+        panelContenedor.add(panelCentral);
+        panelContenedor.add(espacioDerecho);
+        
+        add(panelContenedor, BorderLayout.CENTER);
+    }
 }

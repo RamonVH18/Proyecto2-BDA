@@ -67,7 +67,7 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new ClienteFrecuenteBOException("El nombre no puede superar los 100 caracteres.");
         }
 
-        if (!esNombreValido(nombreCompleto)) {
+        if (!esNombreValido(nombreCompleto.trim())) {
             throw new ClienteFrecuenteBOException("El nombre solo puede contener letras y de 2 a 4 palabras (nombre, apellido paterno y opcional materno).");
         }
 
@@ -75,12 +75,8 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new ClienteFrecuenteBOException("El numero de telefono no puede estar vacio");
         }
 
-        if (telefono.length() > 10) {
-            throw new ClienteFrecuenteBOException("El numero de telefono no puede superar los 10 caracteres.");
-        }
-
-        if (correo == null || correo.isBlank()) {
-            throw new ClienteFrecuenteBOException("El correo no puede estar vacio.");
+        if (telefono.length() != 10) {
+            throw new ClienteFrecuenteBOException("El numero de telefono no puede ser diferente de 10 caracteres.");
         }
 
         if (correo.length() > 100) {
@@ -94,9 +90,11 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
         try {
             // Se crea el DTO con los valores por defecto y los datos del cliente
             NuevoClienteFrecuenteDTO nuevoClienteFrecuenteDTO = new NuevoClienteFrecuenteDTO();
-            nuevoClienteFrecuenteDTO.setNombreCompleto(nombreCompleto);
+            nuevoClienteFrecuenteDTO.setNombreCompleto(nombreCompleto.trim());
             nuevoClienteFrecuenteDTO.setNumeroTelefono(telefono);
-            nuevoClienteFrecuenteDTO.setCorreo(correo);
+            if (!correo.isBlank()) {
+                nuevoClienteFrecuenteDTO.setCorreo(correo);
+            }
             nuevoClienteFrecuenteDTO.setFechaRegistro(LocalDateTime.now());
             nuevoClienteFrecuenteDTO.setNumVisitas(0);
             nuevoClienteFrecuenteDTO.setTotalGastado(0.0);
@@ -105,10 +103,12 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             // Se transforma el DTO en entidad
             ClienteFrecuente clienteFrecuenteEntity = mapeador.toEntity(nuevoClienteFrecuenteDTO);
 
-            // Verifica si ya existe un cliente con el mismo numero
-            ClienteFrecuente clienteFrecuenteViejo = clienteFrecuenteDAO.buscarPorTelefono(telefono);
+            // Verifica si ya existe un cliente con el mismo nombre, telefono y correo
+            ClienteFrecuente clienteVerificadoNombre = clienteFrecuenteDAO.buscarPorNombre(nombreCompleto);
+            ClienteFrecuente clienteVerificadoTelefono = clienteFrecuenteDAO.buscarPorTelefono(telefono);
+            ClienteFrecuente clienteVerificadoCorreo = clienteFrecuenteDAO.buscarPorCorreo(correo);
 
-            if (clienteFrecuenteViejo != null) {
+            if (clienteVerificadoNombre != null || clienteVerificadoTelefono != null || clienteVerificadoCorreo != null) {
                 throw new ClienteFrecuenteBOException("El cliente que intenta registrar ya existe.");
             }
 
@@ -130,19 +130,27 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
      * contrario.
      */
     private boolean esCorreoValido(String correo) {
-        String regexCorreo = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        return correo.matches(regexCorreo);
+        if (correo == null || correo.isBlank()) {
+            return true;
+        }
+
+        // Expresion regular para validar el formato del correo
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return correo.matches(regex);
     }
 
     /**
-     * Valida que el nombre completo tenga entre 2 y 4 palabras, solo letras
-     * (incluyendo tildes y ñ), con espacios entre ellas.
+     * Valida que el nombre completo tenga entre 2 y 4 palabras, solo letras,
+     * con espacios entre ellas.
      *
      * @param nombre El nombre completo a validar.
      * @return true si es valido, false en caso contrario.
      */
     private boolean esNombreValido(String nombre) {
-        return nombre.trim().matches("^([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,})(\\s[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,}){1,3}$");
+        // Elimina espacios al principio y al final
+        nombre = nombre.trim();
+
+        return nombre.matches("^([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,})(\\s[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,}){1,2}$");
     }
 
 }
