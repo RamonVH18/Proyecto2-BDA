@@ -226,7 +226,10 @@ public class RegistroIngrediente extends VentanaBase {
         panelSur.revalidate();
         panelSur.repaint();
     }
-    
+    /**
+     * Metodo para la generacion del boton para añadir los ingredientes
+     * @param boton 
+     */
     private void generarBotonAñadir(JButton boton) {
         boton.setPreferredSize(new Dimension(75, 40));
         boton.addMouseListener(new MouseAdapter() {
@@ -235,7 +238,10 @@ public class RegistroIngrediente extends VentanaBase {
             }
         });
     }
-    
+    /**
+     * Metodo para generar el panel que contrendar todos los componentes que iran en el centro
+     * @param panelCentral 
+     */
     private void generarPanelContenedor(JPanel panelCentral) {
         JPanel panelContenedor = new JPanel();
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));

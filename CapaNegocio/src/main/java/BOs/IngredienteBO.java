@@ -34,10 +34,20 @@ public class IngredienteBO implements IIngredienteBO {
         }
         return instanceBO;
     }
-    
+    /**
+     * Metodo para registrar un ingrediente en BO
+     * @param nombre
+     * @param unidad
+     * @param cantidad
+     * @return
+     * @throws IngredienteBOException 
+     */
     @Override
     public CantidadIngredienteDTO registrarIngrediente(String nombre, String unidad, String cantidad) throws IngredienteBOException {
         try {
+            /**
+             * Validaciones
+             */
             if (nombre == null || nombre.isBlank()){
                 throw new IngredienteBOException("El campo del nombre no puede estar vacio");
             }
@@ -49,9 +59,14 @@ public class IngredienteBO implements IIngredienteBO {
             if (unidad == null || unidad.isBlank()) {
                 throw new IngredienteBOException("El campo de la unidad de medida no puede estar vacio");
             }
-            
+            /**
+             * Se llama a un metodo especial para validar la unidad de medida
+             */
             Unidad unidadMedida = validarUnidadMedida(unidad);
             
+            /**
+             * mas validaciones
+             */
             if (cantidad == null || cantidad.isBlank()) {
                 throw new IngredienteBOException("El campo de la cantidad no puede estar vacio");
             }
@@ -59,18 +74,23 @@ public class IngredienteBO implements IIngredienteBO {
             if (!cantidad.matches("^-?\\d+(\\.\\d+)?$")) {
                 throw new IngredienteBOException("La cantidad que ingreso es invalida");
             }
+            
             Double cantidadUsada = Double.parseDouble(cantidad);
-            
+            /**
+             * Se crea el ingrediente con la informacion obtenidad y despues se mapea
+             */
             CantidadIngredienteDTO ingredienteNuevo = new CantidadIngredienteDTO(nombre, unidadMedida, cantidadUsada);
-            
             Ingrediente ingrediente = mapeador.toEntity(ingredienteNuevo);
-            
+            /**
+             * Se llama a un metodo de la DAO para confirmar que el ingrediente no exista
+             */
             Ingrediente ingredienteViejo = ingredienteDAO.buscarIngredientePorNombre(nombre, unidadMedida);
-            
             if (ingredienteViejo != null) {
                 throw  new IngredienteBOException("Este ingrediente ya se encuentra registrado");
             } 
-            
+            /**
+             * Finalmente se registra el ingrediente
+             */
             ingredienteDAO.registraIngrediente(ingrediente);
             
             return ingredienteNuevo;
@@ -80,7 +100,14 @@ public class IngredienteBO implements IIngredienteBO {
             throw new IngredienteBOException("Hubo un error al registrar el ingrediente: " + e.getMessage());
         }
     }
-    
+    /**
+     * Metodo que sirve para validar que el tipo de unidad de medida este bien
+     * Perdon Profe se que un combobox solucionaba todos mis problemas, pero es que el diseño de la ventana ya habia quedado bien bonito, 
+     * y aparte me traumaron los comboBox
+     * @param unidad
+     * @return
+     * @throws IngredienteBOException 
+     */
     public Unidad validarUnidadMedida(String unidad) throws IngredienteBOException{
         
         if (null == unidad) {
