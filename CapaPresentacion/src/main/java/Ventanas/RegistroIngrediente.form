@@ -34,7 +34,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jTextFieldCantidad" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldUnidad" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelUnidad" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldNombre" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
@@ -58,9 +57,7 @@
               <Component id="jTextFieldNombre" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabelUnidad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jTextFieldUnidad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTextFieldCantidad" min="-2" max="-2" attributes="0"/>
@@ -86,11 +83,6 @@
     <Component class="javax.swing.JLabel" name="jLabelUnidad">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldUnidad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCantidad">

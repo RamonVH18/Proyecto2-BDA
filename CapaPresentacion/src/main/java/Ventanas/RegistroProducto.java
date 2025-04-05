@@ -204,7 +204,7 @@ public class RegistroProducto extends VentanaBase {
         return panel;
     }
     /**
-     * Este metodo genera un panel que es donde se unen los label y los textField
+     * Este metodo genera un panel que es donde se unen los label y los comboBox
      * @param label
      * @param textField
      * @return 

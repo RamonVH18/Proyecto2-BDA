@@ -7,6 +7,8 @@ package Ventanas;
 import BOs.IngredienteBO;
 import Control.ControlDeNavegacion;
 import Control.IControl;
+import Enums.Tipo;
+import Enums.Unidad;
 import Exceptions.IngredienteBOException;
 import interfaces.IIngredienteBO;
 import java.awt.BorderLayout;
@@ -18,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -56,7 +59,6 @@ public class RegistroIngrediente extends VentanaBase {
         jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelUnidad = new javax.swing.JLabel();
-        jTextFieldUnidad = new javax.swing.JTextField();
         jLabelCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
         btnRegreso = new javax.swing.JButton();
@@ -69,8 +71,6 @@ public class RegistroIngrediente extends VentanaBase {
         jTextFieldNombre.setText("jTextField1");
 
         jLabelUnidad.setText("jLabel2");
-
-        jTextFieldUnidad.setText("jTextField2");
 
         jLabelCantidad.setText("jLabel3");
 
@@ -94,7 +94,6 @@ public class RegistroIngrediente extends VentanaBase {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelCantidad)
-                            .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelUnidad)
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelNombre)))
@@ -112,9 +111,7 @@ public class RegistroIngrediente extends VentanaBase {
                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelUnidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addComponent(jLabelCantidad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,7 +136,7 @@ public class RegistroIngrediente extends VentanaBase {
     
     private void botonAñadirMouseClicked(MouseEvent evt) {
         try {
-            instanceBO.registrarIngrediente(jTextFieldNombre.getText(), jTextFieldUnidad.getText(), jTextFieldCantidad.getText());
+            instanceBO.registrarIngrediente(jTextFieldNombre.getText(), (Unidad) jComboBoxUnidad.getSelectedItem(), jTextFieldCantidad.getText());
             
             JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente", "Ingrediente", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -155,8 +152,8 @@ public class RegistroIngrediente extends VentanaBase {
     private javax.swing.JLabel jLabelUnidad;
     private javax.swing.JTextField jTextFieldCantidad;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldUnidad;
     // End of variables declaration//GEN-END:variables
+    private JComboBox<Unidad> jComboBoxUnidad;
     /**
      * Metodo para generar la ventana del registro de ingredientes
      */
@@ -174,12 +171,12 @@ public class RegistroIngrediente extends VentanaBase {
         jLabelNombre = new JLabel("Nombre:");
         jTextFieldNombre = new JTextField();
         jLabelUnidad = new JLabel("Unidad de Medida:");
-        jTextFieldUnidad = new JTextField();
+        jComboBoxUnidad = new JComboBox<>(Unidad.values());
         jLabelCantidad = new JLabel("Cantidad:");
         jTextFieldCantidad = new JTextField();
 
         panelCentral.add(generacionPanel(jLabelNombre, jTextFieldNombre));
-        panelCentral.add(generacionPanel(jLabelUnidad, jTextFieldUnidad));
+        panelCentral.add(generacionPanel2(jLabelUnidad, jComboBoxUnidad));
         panelCentral.add(generacionPanel(jLabelCantidad, jTextFieldCantidad));
         panelCentral.add(btnAñadir);
         
@@ -205,6 +202,25 @@ public class RegistroIngrediente extends VentanaBase {
         panel.setMaximumSize(new Dimension(100, 500));
         panel.add(label);
         panel.add(textField);
+        return panel;
+    }
+    /**
+     * Este metodo genera un panel que es donde se unen los label y los comboBox
+     * @param label
+     * @param textField
+     * @return 
+     */
+    private JPanel generacionPanel2(JLabel label, JComboBox comboBox) {
+        JPanel panel = new JPanel();
+        Font fuente = new Font("Arial", Font.BOLD, 18);
+        label.setFont(fuente);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        comboBox.setFont(fuente);
+        comboBox.setPreferredSize(new Dimension(100, 25));
+        panel.setLayout(new GridLayout(0, 1, 5, 5));
+        panel.setMaximumSize(new Dimension(100, 500));
+        panel.add(label);
+        panel.add(comboBox);
         return panel;
     }
     /**
