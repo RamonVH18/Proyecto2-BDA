@@ -67,10 +67,6 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new ClienteFrecuenteBOException("El nombre no puede superar los 100 caracteres.");
         }
 
-        if (!esNombreValido(nombreCompleto.trim())) {
-            throw new ClienteFrecuenteBOException("El nombre solo puede contener letras y de 2 a 4 palabras (nombre, apellido paterno y opcional materno).");
-        }
-
         if (telefono == null || telefono.isBlank()) {
             throw new ClienteFrecuenteBOException("El numero de telefono no puede estar vacio");
         }
@@ -100,9 +96,6 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             nuevoClienteFrecuenteDTO.setTotalGastado(0.0);
             nuevoClienteFrecuenteDTO.setPuntosDeFidelidad(0);
 
-            // Se transforma el DTO en entidad
-            ClienteFrecuente clienteFrecuenteEntity = mapeador.toEntity(nuevoClienteFrecuenteDTO);
-
             // Verifica si ya existe un cliente con el mismo nombre, telefono y correo
             ClienteFrecuente clienteVerificadoNombre = clienteFrecuenteDAO.buscarPorNombre(nombreCompleto);
             ClienteFrecuente clienteVerificadoTelefono = clienteFrecuenteDAO.buscarPorTelefono(telefono);
@@ -111,6 +104,9 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             if (clienteVerificadoNombre != null || clienteVerificadoTelefono != null || clienteVerificadoCorreo != null) {
                 throw new ClienteFrecuenteBOException("El cliente que intenta registrar ya existe.");
             }
+
+            // Se transforma el DTO en entidad
+            ClienteFrecuente clienteFrecuenteEntity = mapeador.toEntity(nuevoClienteFrecuenteDTO);
 
             // Se registra el nuevo cliente
             clienteFrecuenteDAO.registrarClienteFrecuente(clienteFrecuenteEntity);
@@ -137,20 +133,6 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
         // Expresion regular para validar el formato del correo
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return correo.matches(regex);
-    }
-
-    /**
-     * Valida que el nombre completo tenga entre 2 y 4 palabras, solo letras,
-     * con espacios entre ellas.
-     *
-     * @param nombre El nombre completo a validar.
-     * @return true si es valido, false en caso contrario.
-     */
-    private boolean esNombreValido(String nombre) {
-        // Elimina espacios al principio y al final
-        nombre = nombre.trim();
-
-        return nombre.matches("^([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,})(\\s[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,}){1,2}$");
     }
 
 }

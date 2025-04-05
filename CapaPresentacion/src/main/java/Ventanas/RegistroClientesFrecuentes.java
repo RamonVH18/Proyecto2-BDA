@@ -53,20 +53,24 @@ public class RegistroClientesFrecuentes extends VentanaBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelNombreCompleto = new javax.swing.JLabel();
-        jTextFieldNombreCompleto = new javax.swing.JTextField();
+        jLabelNombre = new javax.swing.JLabel();
+        jTextFieldNombre = new javax.swing.JTextField();
         jLabelTelefono = new javax.swing.JLabel();
         jTextFieldTelefono = new javax.swing.JTextField();
         jLabelCorreo = new javax.swing.JLabel();
         jTextFieldCorreo = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnRegreso = new javax.swing.JButton();
+        jLabelApellidoPaterno = new javax.swing.JLabel();
+        jTextFieldApellidoPaterno = new javax.swing.JTextField();
+        jLabelApellidoMaterno = new javax.swing.JLabel();
+        jTextFieldApellidoMaterno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabelNombreCompleto.setText("jLabel1");
+        jLabelNombre.setText("jLabel1");
 
-        jTextFieldNombreCompleto.setText("jTextField1");
+        jTextFieldNombre.setText("jTextField1");
 
         jLabelTelefono.setText("jLabel2");
 
@@ -80,47 +84,66 @@ public class RegistroClientesFrecuentes extends VentanaBase {
 
         btnRegreso.setText("jButton2");
 
+        jLabelApellidoPaterno.setText("jLabel1");
+
+        jTextFieldApellidoPaterno.setText("jTextField1");
+
+        jLabelApellidoMaterno.setText("jLabel1");
+
+        jTextFieldApellidoMaterno.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRegreso)
+                .addGap(84, 84, 84)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRegistrar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelCorreo)
-                                .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelTelefono)
-                                .addComponent(jTextFieldNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelNombreCompleto))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnRegreso)))
-                .addContainerGap(164, Short.MAX_VALUE))
+                    .addComponent(jTextFieldApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelApellidoMaterno)
+                    .addComponent(jTextFieldApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelApellidoPaterno)
+                    .addComponent(btnRegistrar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNombre))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCorreo)
+                            .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTelefono))))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabelNombreCompleto)
+                .addContainerGap()
+                .addComponent(jLabelNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabelApellidoPaterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelApellidoMaterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelTelefono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btnRegistrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegreso)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegreso)
+                    .addComponent(btnRegistrar))
                 .addContainerGap())
         );
 
@@ -133,28 +156,55 @@ public class RegistroClientesFrecuentes extends VentanaBase {
         navegacion.abrirVentana("Menu de Clientes Frecuentes");
         navegacion.cerrarVentana("Registro Cliente Frecuente");
     }
-    
+
     private void botonAñadirMouseClicked(MouseEvent evt) {
         try {
-            instanceBO.registrarClienteFrecuente(jTextFieldNombreCompleto.getText(), jTextFieldTelefono.getText(), jTextFieldCorreo.getText());
+            String nombre = jTextFieldNombre.getText().trim();
+            String apellidoPaterno = jTextFieldApellidoPaterno.getText().trim();
+            String apellidoMaterno = jTextFieldApellidoMaterno.getText().trim();
+
+            StringBuilder nombreCompletoBuilder = new StringBuilder();
+
+            if (!nombre.isEmpty()) {
+                nombreCompletoBuilder.append(nombre);
+            }
+
+            if (!apellidoPaterno.isEmpty()) {
+                nombreCompletoBuilder.append(" ").append(apellidoPaterno);
+            }
+
+            if (!apellidoMaterno.isEmpty()) {
+                nombreCompletoBuilder.append(" ").append(apellidoMaterno);
+            }
+
+            String nombreCompleto = nombreCompletoBuilder.toString().trim();
             
+            instanceBO.registrarClienteFrecuente(nombreCompleto, jTextFieldTelefono.getText(), jTextFieldCorreo.getText());
+
             JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente", "Cliente Frecuente", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClienteFrecuenteBOException | HeadlessException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRegreso;
+    private javax.swing.JLabel jLabelApellidoMaterno;
+    private javax.swing.JLabel jLabelApellidoPaterno;
     private javax.swing.JLabel jLabelCorreo;
-    private javax.swing.JLabel jLabelNombreCompleto;
+    private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelTelefono;
+    private javax.swing.JTextField jTextFieldApellidoMaterno;
+    private javax.swing.JTextField jTextFieldApellidoPaterno;
     private javax.swing.JTextField jTextFieldCorreo;
-    private javax.swing.JTextField jTextFieldNombreCompleto;
+    private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
-
+  
+    /**
+     * Metodo para generar la ventana del registro de ingredientes
+     */
     private void generarRegistroClienteFrecuente() {
         JPanel panelCentral = new JPanel();
         panelCentral.setLayout(new GridLayout(0, 1, 20, 20));
@@ -162,28 +212,42 @@ public class RegistroClientesFrecuentes extends VentanaBase {
 
         btnRegreso = new JButton("REGRESAR");
         generarBotonRegreso(btnRegreso);
-        
+
         btnRegistrar = new JButton("REGISTRAR");
         generarBotonRegistrar(btnRegistrar);
 
-        jLabelNombreCompleto = new JLabel("Nombre completo:");
-        jTextFieldNombreCompleto = new JTextField();
+        jLabelNombre = new JLabel("Nombre:");
+        jTextFieldNombre = new JTextField();
+        jLabelApellidoPaterno = new JLabel("Apellido Paterno:");
+        jTextFieldApellidoPaterno = new JTextField();
+        jLabelApellidoMaterno = new JLabel("Apellido Materno:");
+        jTextFieldApellidoMaterno = new JTextField();
         jLabelTelefono = new JLabel("Numero de telefono:");
         jTextFieldTelefono = new JTextField();
         jLabelCorreo = new JLabel("Correo electronico:");
         jTextFieldCorreo = new JTextField();
 
-        panelCentral.add(generacionPanel(jLabelNombreCompleto, jTextFieldNombreCompleto));
+        panelCentral.add(generacionPanel(jLabelNombre, jTextFieldNombre));
+        panelCentral.add(generacionPanel(jLabelApellidoPaterno, jTextFieldApellidoPaterno));
+        panelCentral.add(generacionPanel(jLabelApellidoMaterno, jTextFieldApellidoMaterno));
         panelCentral.add(generacionPanel(jLabelTelefono, jTextFieldTelefono));
         panelCentral.add(generacionPanel(jLabelCorreo, jTextFieldCorreo));
         panelCentral.add(btnRegistrar);
-        
+
         generarPanelContenedor(panelCentral);
 
         revalidate();
         repaint();
     }
-    
+
+    /**
+     * Este metodo genera un panel que es donde se unen los label y los
+     * textField
+     *
+     * @param label
+     * @param textField
+     * @return
+     */
     private JPanel generacionPanel(JLabel label, JTextField textField) {
         JPanel panel = new JPanel();
         Font fuente = new Font("Arial", Font.BOLD, 18);
@@ -197,7 +261,12 @@ public class RegistroClientesFrecuentes extends VentanaBase {
         panel.add(textField);
         return panel;
     }
-    
+
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     *
+     * @param boton
+     */
     private void generarBotonRegreso(JButton boton) {
         JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
         boton.setPreferredSize(new Dimension(125, 70));
@@ -213,7 +282,12 @@ public class RegistroClientesFrecuentes extends VentanaBase {
         panelSur.revalidate();
         panelSur.repaint();
     }
-    
+
+    /**
+     * Metodo para la generacion del boton para registar clientes
+     *
+     * @param boton
+     */
     private void generarBotonRegistrar(JButton boton) {
         boton.setPreferredSize(new Dimension(75, 40));
         boton.addMouseListener(new MouseAdapter() {
@@ -222,22 +296,28 @@ public class RegistroClientesFrecuentes extends VentanaBase {
             }
         });
     }
-    
+
+    /**
+     * Metodo para generar el panel el cual contrenda todos los componentes que
+     * iran en el centro
+     *
+     * @param panelCentral
+     */
     private void generarPanelContenedor(JPanel panelCentral) {
         JPanel panelContenedor = new JPanel();
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));
-        
+
         // Panel de margen para centrar
         JPanel espacioIzquierdo = new JPanel();
         espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
 
         JPanel espacioDerecho = new JPanel();
         espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
-        
+
         panelContenedor.add(espacioIzquierdo);
         panelContenedor.add(panelCentral);
         panelContenedor.add(espacioDerecho);
-        
+
         add(panelContenedor, BorderLayout.CENTER);
     }
 }
