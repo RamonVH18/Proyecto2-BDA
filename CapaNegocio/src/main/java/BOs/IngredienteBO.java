@@ -48,7 +48,7 @@ public class IngredienteBO implements IIngredienteBO {
      * @throws IngredienteBOException 
      */
     @Override
-    public CantidadIngredienteDTO registrarIngrediente(String nombre, String unidad, String cantidad) throws IngredienteBOException {
+    public CantidadIngredienteDTO registrarIngrediente(String nombre, Unidad unidad, String cantidad) throws IngredienteBOException {
         try {
             /**
              * Validaciones
@@ -60,14 +60,9 @@ public class IngredienteBO implements IIngredienteBO {
             if (nombre.length() > 50) {
                 throw new IngredienteBOException("El nombre del ingrediente no puede rebasar los 50 caracteres");
             }
-            
-            if (unidad == null || unidad.isBlank()) {
-                throw new IngredienteBOException("El campo de la unidad de medida no puede estar vacio");
-            }
             /**
              * Se llama a un metodo especial para validar la unidad de medida
              */
-            Unidad unidadMedida = validarUnidadMedida(unidad);
             
             /**
              * mas validaciones
@@ -84,12 +79,12 @@ public class IngredienteBO implements IIngredienteBO {
             /**
              * Se crea el ingrediente con la informacion obtenidad y despues se mapea
              */
-            CantidadIngredienteDTO ingredienteNuevo = new CantidadIngredienteDTO(nombre, unidadMedida, cantidadUsada);
+            CantidadIngredienteDTO ingredienteNuevo = new CantidadIngredienteDTO(nombre, unidad, cantidadUsada);
             Ingrediente ingrediente = mapeador.toEntity(ingredienteNuevo);
             /**
              * Se llama a un metodo de la DAO para confirmar que el ingrediente no exista
              */
-            Ingrediente ingredienteViejo = ingredienteDAO.buscarIngredientePorNombre(nombre, unidadMedida);
+            Ingrediente ingredienteViejo = ingredienteDAO.buscarIngredientePorNombre(nombre, unidad);
             if (ingredienteViejo != null) {
                 throw  new IngredienteBOException("Este ingrediente ya se encuentra registrado");
             } 
@@ -109,6 +104,8 @@ public class IngredienteBO implements IIngredienteBO {
      * Metodo que sirve para validar que el tipo de unidad de medida este bien
      * Perdon Profe se que un combobox solucionaba todos mis problemas, pero es que el diseño de la ventana ya habia quedado bien bonito, 
      * y aparte me traumaron los comboBox
+     * Ya se corrigio, siempre si agregue el comboBox, gracias RodrigoDeidad
+     * Dejare esto aqui por si acaso
      * @param unidad
      * @return
      * @throws IngredienteBOException 
@@ -139,13 +136,19 @@ public class IngredienteBO implements IIngredienteBO {
                 throw new IngredienteBOException("No existe esa unidad de medida");
         }
     }
-    
+    /**
+     * Metodo que se encarga de obtener todos los Ingredientes que existen
+     * @return
+     * @throws IngredienteBOException 
+     */
     @Override 
     public List<CantidadIngredienteDTO> obtenerIngredientesDisponibles() throws IngredienteBOException{
         List<CantidadIngredienteDTO> ingredientesDisponibles = new ArrayList<>();
         try {
             List<Ingrediente> ingredientes = ingredienteDAO.buscarTodosLosIngredientes();
-            
+            /**
+             * For que se encarga de mapear toda la lista por completo
+             */
             for (int i = 0; i < ingredientes.size(); i++) {
                 Ingrediente ingrediente = ingredientes.get(i);
                 CantidadIngredienteDTO ingredienteViejo = mapeador.toCantidadIngredienteDTO(ingrediente);
@@ -159,15 +162,25 @@ public class IngredienteBO implements IIngredienteBO {
         }
         
     }
-    
+    /**
+     * Metodo que se encarga de eliminar un ingrediente
+     * @param ingredienteDTO
+     * @return
+     * @throws IngredienteBOException 
+     */
     @Override
     public boolean eliminarIngrediente(CantidadIngredienteDTO ingredienteDTO) throws IngredienteBOException {
         try {
             
             Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
-            
+            /**
+             * Se llama a este metodo de la DAO para obtener el Id
+             */
             Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
-            
+            /**
+             * En esta condicional se maneja el metodo de eliminar, si todos sale bien se regresa un true
+             * y si no se crea una excepcion
+             */
             if (ingredienteDAO.eliminarIngrediente(id)) {
                 return true;
             } else {
@@ -178,14 +191,26 @@ public class IngredienteBO implements IIngredienteBO {
             throw new IngredienteBOException("No se pudo eliminar este ingrediente");
         } 
     }
-    
+    /**
+     * Metodo para aumentar el stock
+     * NO CONFUNDIR CON disminuirStock!!
+     * @param ingredienteDTO
+     * @param stock
+     * @return
+     * @throws IngredienteBOException 
+     */
     @Override
     public boolean aumentarStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException {
         try {
+            /**
+             * Se crea el nuevoStock sumando la cantidad a agregar al antiguo Stock
+             */
             Double nuevoStock = (ingredienteDTO.getCantidadUsada() + stock);
             
             Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
-            
+            /**
+             * Se llama un metodo para buscar el ingrediente
+             */
             Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
             
             ingredienteDAO.modificarStockIngrediente(id, nuevoStock);
@@ -195,18 +220,32 @@ public class IngredienteBO implements IIngredienteBO {
             throw new IngredienteBOException("No se pudo agregar mas stock al inventario");
         }
     }
-    
+    /**
+     * Metodo que se encarga de disminuir el stock
+     * NO CONFUNDIR CON aumentarStock
+     * @param ingredienteDTO
+     * @param stock
+     * @return
+     * @throws IngredienteBOException 
+     */
     @Override
     public boolean disminuirStock(CantidadIngredienteDTO ingredienteDTO, Double stock) throws IngredienteBOException {
         try {
+            /**
+             * Se crea el nuevoStock restando la cantidad a agregar al antiguo Stock
+             */
             Double nuevoStock = (ingredienteDTO.getCantidadUsada() - stock);
-            
+            /**
+             * Validacion para que no se pueda guardar un stock negativo
+             */
             if (nuevoStock < 0) {
                 throw new IngredienteBOException("Esta intentando quitar mas stock de la que hay disponible");
             }
             
             Ingrediente ingrediente = mapeador.toEntity(ingredienteDTO);
-            
+            /**
+             * Se llama un metodo para buscar el ingrediente
+             */
             Long id = ingredienteDAO.obtenerIdIngrediente(ingrediente);
             
             ingredienteDAO.modificarStockIngrediente(id, nuevoStock);

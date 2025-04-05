@@ -140,13 +140,26 @@ public class VerIngredientes extends VentanaBase {
         navegacion.cerrarVentana("Ver Ingredientes");
     }
 
+    /**
+     * Metodo que se encarga de toda la funcionalidad al presionar el boton de
+     * aumentar stock
+     *
+     * @param evt
+     */
     private void botonAumentarMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         try {
+            /**
+             * Se crea el JOptionPane para agregar la cantidad que hay que
+             * aumentar
+             */
             String stockTexto = JOptionPane.showInputDialog(null, "Ingrese cuanto desea aumentar al stock: ", "");
             if (!stockTexto.matches("^-?\\d+(\\.\\d+)?$")) {
                 JOptionPane.showMessageDialog(null, "La cantidad que ingreso es invalida", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
+                /**
+                 * Aqui se modifica el stock
+                 */
                 Double cantidadUsada = Double.parseDouble(stockTexto);
                 if (instanceBO.aumentarStock(ingredienteSeleccionado, cantidadUsada)) {
                     JOptionPane.showMessageDialog(null, "Se agrego mas stock exitosamente ", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -159,13 +172,26 @@ public class VerIngredientes extends VentanaBase {
         }
     }
 
+    /**
+     * Metodo que se encarga de toda la funcionalidad al presionar el boton de
+     * aumentar stock
+     *
+     * @param evt
+     */
     private void botonDisminuirMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         try {
+            /**
+             * Se crea el JOptionPane para agregar la cantidad que hay que
+             * disminuir
+             */
             String stockTexto = JOptionPane.showInputDialog(null, "Ingrese cuanto desea disminuir al stock: ", "");
             if (!stockTexto.matches("^-?\\d+(\\.\\d+)?$")) {
                 JOptionPane.showMessageDialog(null, "La cantidad que ingreso es invalida", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
+                /**
+                 * Aqui se modifica el stock
+                 */
                 Double cantidadUsada = Double.parseDouble(stockTexto);
                 if (instanceBO.aumentarStock(ingredienteSeleccionado, cantidadUsada)) {
                     JOptionPane.showMessageDialog(null, "Se agrego mas stock exitosamente ", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -178,9 +204,18 @@ public class VerIngredientes extends VentanaBase {
         }
     }
 
+    /**
+     * Metodo que se encarga de toda la funcionalidad al presionar el boton de
+     * aumentar stock
+     *
+     * @param evt
+     */
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         try {
+            /**
+             * Condicional que se encarga de eliminar el ingrediente
+             */
             if (instanceBO.eliminarIngrediente(ingredienteSeleccionado)) {
                 actualizarTabla();
                 JOptionPane.showMessageDialog(null, "Se elimino exitosamente el ingrediente", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -394,8 +429,18 @@ public class VerIngredientes extends VentanaBase {
         });
     }
 
+    /**
+     * Este metodo le agrega a la tabla la funcionalidad de que al seleccionar
+     * un renglon se guarde el dato seleccionado
+     *
+     * @param tabla
+     */
     private void seleccionTabla(JTable tabla) {
         tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            /**
+             * Este metodo es el que se encarga de checar cuando se selecciona
+             * la lista
+             */
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) { // Evitar múltiples eventos al mover el cursor
@@ -438,6 +483,11 @@ public class VerIngredientes extends VentanaBase {
         panelSur.repaint();
     }
 
+    /**
+     * Metodo neceserio para la generacion del boton de aumentar stock
+     *
+     * @param boton
+     */
     private void generarBotonAumentar(JButton boton) {
         boton.setPreferredSize(new Dimension(125, 70));
         boton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -449,6 +499,11 @@ public class VerIngredientes extends VentanaBase {
         boton.repaint();
     }
 
+    /**
+     * Metodo neceserio para la generacion del boton de disminuir stock
+     *
+     * @param boton
+     */
     private void generarBotonDisminuir(JButton boton) {
         boton.setPreferredSize(new Dimension(125, 70));
         boton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -460,6 +515,11 @@ public class VerIngredientes extends VentanaBase {
         boton.repaint();
     }
 
+    /**
+     * Metodo neceserio para la generacion del boton de eliminar ingrediente
+     *
+     * @param boton
+     */
     private void generarBotonEliminar(JButton boton) {
         boton.setPreferredSize(new Dimension(125, 70));
         boton.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -5,6 +5,7 @@
 package interfaces;
 
 import DTOs.CantidadIngredienteDTO;
+import Enums.Unidad;
 import Exceptions.IngredienteBOException;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface IIngredienteBO {
     
-   public CantidadIngredienteDTO registrarIngrediente(String nombre, String unidad, String cantidad) throws IngredienteBOException;
+   public CantidadIngredienteDTO registrarIngrediente(String nombre, Unidad unidad, String cantidad) throws IngredienteBOException;
    
    public List<CantidadIngredienteDTO> obtenerIngredientesDisponibles() throws IngredienteBOException;
    
