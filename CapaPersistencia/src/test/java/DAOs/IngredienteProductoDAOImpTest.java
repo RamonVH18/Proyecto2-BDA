@@ -30,7 +30,7 @@ public class IngredienteProductoDAOImpTest {
         EntityManager em = Conexion.crearConexion();
         em.getTransaction().begin();
 
-        productoTest = new Producto("ProductoTestIP", 40, Tipo.Platillo, true);
+        productoTest = new Producto("ProductoTestIP", 40.00, Tipo.Platillo);
         ingredienteTest = new Ingrediente("IngredienteTest", Unidad.PIEZA, 20.00);
 
         em.persist(productoTest);

@@ -15,13 +15,13 @@ import java.util.List;
 public class ProductoDTO {
 
     private String nombre;
-    private Integer precio;
+    private Double precio;
     private Tipo tipo;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(String nombre, Integer precio, Tipo tipo) {
+    public ProductoDTO(String nombre, Double precio, Tipo tipo) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
@@ -35,11 +35,11 @@ public class ProductoDTO {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

@@ -58,7 +58,7 @@ public class ProductoDAOImpTest {
      */
     @Test
     public void testRegistrarProducto() throws ProductoException {
-        Producto nuevoProducto = new Producto("ProductoTest1", 50, Tipo.Postre, true);
+        Producto nuevoProducto = new Producto("ProductoTest1", 50.00, Tipo.Postre);
         Producto registrado = productoDAO.registrarProducto(nuevoProducto);
 
         assertNotNull(registrado);
@@ -72,7 +72,7 @@ public class ProductoDAOImpTest {
      */
     @Test
     public void testBuscarPorNombre() throws ProductoException {
-        Producto producto = new Producto("ProductoTest2", 30, Tipo.Bebida, true);
+        Producto producto = new Producto("ProductoTest2", 30.00, Tipo.Bebida);
         productoDAO.registrarProducto(producto);
 
         Producto encontrado = productoDAO.buscarPorNombre("ProductoTest2");
@@ -87,8 +87,8 @@ public class ProductoDAOImpTest {
      */
     @Test
     public void testBuscarTodos() throws ProductoException {
-        productoDAO.registrarProducto(new Producto("ProductoTest3", 15, Tipo.Bebida, true));
-        productoDAO.registrarProducto(new Producto("ProductoTest4", 22, Tipo.Platillo, true));
+        productoDAO.registrarProducto(new Producto("ProductoTest3", 15.00, Tipo.Bebida));
+        productoDAO.registrarProducto(new Producto("ProductoTest4", 22.00, Tipo.Platillo));
 
         List<Producto> lista = productoDAO.buscarTodos();
 

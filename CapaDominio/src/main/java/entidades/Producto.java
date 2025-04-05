@@ -35,10 +35,10 @@ public class Producto implements Serializable {
     private String nombre;
     
     @Column(name = "estado", nullable = false)
-    private Boolean estado;
+    private Boolean estado = Boolean.TRUE;
     
     @Column(name = "precio",nullable = false)
-    private Integer precio;
+    private Double precio;
     
     @Column(name = "tipo", nullable = false)
     @Enumerated(value = EnumType.STRING)
@@ -52,11 +52,10 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(String nombre, Integer precio, Tipo tipo, Boolean estado) {
+    public Producto(String nombre, Double precio, Tipo tipo) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
-        this.estado = estado;
     }
     
     
@@ -82,11 +81,11 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

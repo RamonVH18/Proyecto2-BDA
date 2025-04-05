@@ -27,10 +27,10 @@ public class ProductoPruebas {
         try{
             
 //      Agregar Producto    
-        Producto producto1 = new Producto("Hamburguesa", 120, Tipo.Platillo, Boolean.TRUE);
-        Producto producto2 = new Producto("Limonada", 30, Tipo.Bebida, Boolean.TRUE);
-        Producto producto3 = new Producto("Cheescake", 45, Tipo.Postre, Boolean.TRUE);
-        Producto producto4 = new Producto("Jamaica", 31, Tipo.Bebida, Boolean.TRUE);
+        Producto producto1 = new Producto("Hamburguesa", 120.00, Tipo.Platillo);
+        Producto producto2 = new Producto("Limonada", 30.00, Tipo.Bebida);
+        Producto producto3 = new Producto("Cheescake", 45.00, Tipo.Postre);
+        Producto producto4 = new Producto("Jamaica", 31.00, Tipo.Bebida);
         
         productoDAO.registrarProducto(producto1);
         productoDAO.registrarProducto(producto2);
@@ -51,7 +51,7 @@ public class ProductoPruebas {
         System.out.println(productoBuscarTipo);
         
 //      Actualizar producto
-        productoBuscar.setPrecio(200);
+        productoBuscar.setPrecio(200.00);
         productoBuscar.setEstado(Boolean.FALSE);
         Boolean resultado = productoDAO.actualizarProducto(productoBuscar.getNombre(), productoBuscar);
             System.out.println(resultado);
