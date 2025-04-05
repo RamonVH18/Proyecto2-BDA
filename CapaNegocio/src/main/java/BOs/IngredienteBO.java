@@ -11,8 +11,13 @@ import Enums.Unidad;
 import Exceptions.IngredienteBOException;
 import Mappers.IngredienteMapper;
 import entidades.Ingrediente;
+import exception.IngredienteException;
 import interfaces.IIngredienteBO;
 import interfaces.IIngredienteDAO;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -133,5 +138,25 @@ public class IngredienteBO implements IIngredienteBO {
             default:
                 throw new IngredienteBOException("No existe esa unidad de medida");
         }
+    }
+    
+    @Override 
+    public List<CantidadIngredienteDTO> obtenerIngredientesDisponibles() throws IngredienteBOException{
+        List<CantidadIngredienteDTO> ingredientesDisponibles = new ArrayList<>();
+        try {
+            List<Ingrediente> ingredientes = ingredienteDAO.buscarTodosLosIngredientes();
+            
+            for (int i = 0; i < ingredientes.size(); i++) {
+                Ingrediente ingrediente = ingredientes.get(i);
+                CantidadIngredienteDTO ingredienteViejo = mapeador.toCantidadIngredienteDTO(ingrediente);
+                ingredientesDisponibles.add(ingredienteViejo);
+            }
+            
+            return ingredientesDisponibles;
+            
+        } catch (IngredienteException ex) {
+            throw new IngredienteBOException("Hubo un error al consultar los ingredientes disponibles");
+        }
+        
     }
 }

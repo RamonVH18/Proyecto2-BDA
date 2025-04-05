@@ -4,7 +4,28 @@
  */
 package Ventanas;
 
+import BOs.IngredienteBO;
+import Control.ControlDeNavegacion;
 import Control.IControl;
+import DTOs.CantidadIngredienteDTO;
+import interfaces.IIngredienteBO;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,11 +33,18 @@ import Control.IControl;
  */
 public class VerIngredientes extends VentanaBase {
 
+    private ControlDeNavegacion navegacion;
+    private IIngredienteBO instanceBO;
+    private JTable tablaIngredientes;
+
     /**
      * Creates new form VerIngredientes
      */
     public VerIngredientes(IControl control) {
         super(control, "Ver Ingredientes");
+        navegacion = ControlDeNavegacion.getInstance();
+        instanceBO = IngredienteBO.getInstance();
+        generarVerIngredientes();
     }
 
     /**
@@ -29,23 +57,26 @@ public class VerIngredientes extends VentanaBase {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jLabelBuscador = new javax.swing.JLabel();
+        jTextFieldBuscador = new javax.swing.JTextField();
+        btnAumentarStock = new javax.swing.JButton();
+        btnDisminuirStock = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnRegreso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jLabelBuscador.setText("jLabel1");
 
-        jTextField1.setText("jTextField1");
+        jTextFieldBuscador.setText("jTextField1");
 
-        jButton1.setText("jButton1");
+        btnAumentarStock.setText("jButton1");
 
-        jButton2.setText("jButton2");
+        btnDisminuirStock.setText("jButton2");
 
-        jButton3.setText("jButton3");
+        btnEliminar.setText("jButton3");
+
+        btnRegreso.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,30 +87,34 @@ public class VerIngredientes extends VentanaBase {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelBuscador)
+                            .addComponent(jTextFieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(42, 42, 42))))
+                        .addComponent(btnAumentarStock)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnDisminuirStock)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)
+                        .addGap(42, 42, 42))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRegreso)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabelBuscador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addComponent(jTextFieldBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                    .addComponent(btnAumentarStock)
+                    .addComponent(btnDisminuirStock)
+                    .addComponent(btnEliminar))
+                .addGap(12, 12, 12)
+                .addComponent(btnRegreso))
         );
 
         pack();
@@ -88,12 +123,221 @@ public class VerIngredientes extends VentanaBase {
     /**
      * @param args the command line arguments
      */
+    /**
+     * Metodo que detecta cuando el boton de regreso es presionado
+     *
+     * @param evt
+     */
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
+        navegacion.abrirVentana("Menu Ingredientes");
+        navegacion.cerrarVentana("Ver Ingredientes");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnAumentarStock;
+    private javax.swing.JButton btnDisminuirStock;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnRegreso;
+    private javax.swing.JLabel jLabelBuscador;
+    private javax.swing.JTextField jTextFieldBuscador;
     // End of variables declaration//GEN-END:variables
+    
+    /**
+     * Metodo para generar la ventana de Ver ingredientes
+     */
+    private void generarVerIngredientes() {
+        btnRegreso = new JButton("REGRESAR");
+        generarBotonRegreso(btnRegreso);
+
+        JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+        panelPrincipal.add(configurarPanelSuperior(), BorderLayout.NORTH);
+        panelPrincipal.add(configurarPanelCentral(), BorderLayout.CENTER);
+        panelPrincipal.add(configurarPanelInferior(), BorderLayout.SOUTH);
+        add(panelPrincipal, BorderLayout.CENTER);
+    }
+    
+    /**
+     * Metodo para configurar el Panel Superior
+     * Aqui se encontrara el Label del buscador y el text field que sirve de filtro
+     * @return 
+     */
+    private JPanel configurarPanelSuperior() {
+        JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jLabelBuscador = new JLabel("Buscar Por Nombre");
+        jTextFieldBuscador = new JTextField(20);
+        /**
+         * ESTE METODO ES CLAVE
+         */
+        configurarBuscador(jTextFieldBuscador); 
+        panelSuperior.add(jLabelBuscador);
+        panelSuperior.add(jTextFieldBuscador);
+
+        return panelSuperior;
+    }
+    /**
+     * Metodo para configurar el panel central
+     * En este panel se encontrara la tabla con todos los ingredientes disponibles
+     * @return 
+     */
+    private JPanel configurarPanelCentral() {
+        JPanel panelCentral = new JPanel();
+        panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.X_AXIS));
+
+        /**
+         * Configuracion de paneles para darle forma a la tabla
+         */
+        JPanel espacioIzquierdo = new JPanel();
+        espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        JPanel espacioDerecho = new JPanel();
+        espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        panelCentral.add(espacioIzquierdo);
+        panelCentral.add(configurarTabla());
+        panelCentral.add(espacioDerecho);
+
+        panelCentral.revalidate();
+        panelCentral.repaint();
+
+        return panelCentral;
+    }
+    /**
+     * Metodo para configurar la tabla
+     * Aqui lo que se hace es agregarle el modelo a la tabla metiendolo a un scrollPane y dandole colores bonitos
+     * @return 
+     */
+    private JScrollPane configurarTabla() {
+        // Tabla de ingredientes
+        List<CantidadIngredienteDTO> ingredientes = new ArrayList<>();
+        tablaIngredientes = new JTable(cargarDatosTabla(ingredientes));
+        JScrollPane scrollPane = new JScrollPane(tablaIngredientes);
+
+        // Estilizar la tabla
+        tablaIngredientes.setSelectionBackground(Color.GREEN);
+        tablaIngredientes.setSelectionForeground(Color.BLACK);
+        return scrollPane;
+    }
+    /**
+     * En este metodo se cargan los datos de la tabla
+     * @param ingredientes
+     * @return 
+     */
+    private DefaultTableModel cargarDatosTabla(List<CantidadIngredienteDTO> ingredientes) {
+        /**
+         * Este try lo que hace es guardar dentro de ingredientes todos los ingredientes existentes
+         * Si hay un error se abrira un JoptionPane y se regresara a la ventana pasada
+         */
+        try {
+            ingredientes = instanceBO.obtenerIngredientesDisponibles();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
+            navegacion.abrirVentana("Menu Ingredientes");
+            navegacion.cerrarVentana("Ver Ingredientes");
+        }
+        
+        /**
+         * Creacion de los filtros, en esta parte se filtran los ingredientes esto tomando en cuenta lo que sea que este escrito en el buscador
+         */
+        List<CantidadIngredienteDTO> ingredientesFiltrados = new ArrayList<>();
+        String textoFiltro = jTextFieldBuscador.getText();
+        for (int i = 0; i < ingredientes.size(); i++) {
+            if (ingredientes.get(i).getNombre().toLowerCase().contains(textoFiltro.toLowerCase())) {
+                ingredientesFiltrados.add(ingredientes.get(i));
+            }
+        }
+        /**
+         * Aqui se crea el arreglo de dos dimensiones donde se va a guardar toda la informacion que va a contener la tabla
+         */
+        String[] columnas = {"Ingrediente", "Unidad de medida", "Stock"};
+        Object[][] datos = new Object[ingredientesFiltrados.size()][3];
+        for (int i = 0; i < ingredientesFiltrados.size(); i++) {   
+                datos[i][0] = ingredientesFiltrados.get(i).getNombre();
+                datos[i][1] = ingredientesFiltrados.get(i).getUnidadMedida();
+                datos[i][2] = ingredientesFiltrados.get(i).getCantidadUsada();   
+        }
+        /**
+         * Creacion del modelo de la tabla
+         */
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+
+        return modelo;
+    }
+    
+    /**
+     * Metodo para actualizar la tabla, lo que hace este metodo es volver a llama al metodo de cargarTabla y repinta la tabla
+     */
+    private void actualizarTabla() {
+        List<CantidadIngredienteDTO> ingredientes = new ArrayList<>();
+        tablaIngredientes.setModel(cargarDatosTabla(ingredientes));
+        tablaIngredientes.revalidate();
+        tablaIngredientes.repaint();
+    }
+    /**
+     * Configura el panel Inferior, en este panel se ingresan los tres botones, aumentar stock, disminuir stock y el de eliminar ingrediente
+     * @return 
+     */
+    private JPanel configurarPanelInferior() {
+        // Botones
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        btnAumentarStock = new JButton("Aumentar Stock");
+        btnDisminuirStock = new JButton("Disminuir Stock");
+        btnEliminar = new JButton("Eliminar");
+
+        panelBotones.add(btnAumentarStock);
+        panelBotones.add(btnDisminuirStock);
+        panelBotones.add(btnEliminar);
+
+        return panelBotones;
+    }
+    
+    /**
+     * METODO CLAVE
+     * En este metodo sirve para otorgarle funcionalidades al buscador 
+     * y que asi cuando se escriba algo en el textField se actualice la tabla
+     * @param buscador 
+     */
+    private void configurarBuscador(JTextField buscador) {
+        buscador.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+        });
+    }
+
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     *
+     * @param boton
+     */
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
+
 }
