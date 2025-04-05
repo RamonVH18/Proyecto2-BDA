@@ -8,7 +8,6 @@ import BOs.ProductoBO;
 import Control.ControlDeNavegacion;
 import Control.IControl;
 import Enums.Tipo;
-import Exceptions.IngredienteBOException;
 import interfaces.IProductoBO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -62,6 +61,7 @@ public class RegistroProducto extends VentanaBase {
         jTextFieldPrecio = new javax.swing.JTextField();
         btnRegreso = new javax.swing.JButton();
         btnAñadir = new javax.swing.JButton();
+        btnIngredientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,13 +79,16 @@ public class RegistroProducto extends VentanaBase {
 
         btnAñadir.setText("jButton1");
 
+        btnIngredientes.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnRegreso)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnIngredientes))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -117,7 +120,9 @@ public class RegistroProducto extends VentanaBase {
                 .addGap(18, 18, 18)
                 .addComponent(btnAñadir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(btnRegreso))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegreso)
+                    .addComponent(btnIngredientes)))
         );
 
         pack();
@@ -128,9 +133,16 @@ public class RegistroProducto extends VentanaBase {
      */
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
+        navegacion.registrarVentana("Menu Productos", new MenuProductos(control));
+        navegacion.abrirVentana("Menu Productos");
+        navegacion.cerrarVentana("Registro Producto");
+    }
+    
+    private void botonIngredientesMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
         navegacion.registrarVentana("Menu Ingredientes", new MenuIngredientes(control));
         navegacion.abrirVentana("Menu Ingredientes");
-        navegacion.cerrarVentana("Registro Ingrediente");
+        navegacion.cerrarVentana("Registro Producto");
     }
     
     private void botonAñadirMouseClicked(MouseEvent evt) {
@@ -145,6 +157,7 @@ public class RegistroProducto extends VentanaBase {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAñadir;
+    private javax.swing.JButton btnIngredientes;
     private javax.swing.JButton btnRegreso;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelPrecio;
@@ -162,7 +175,10 @@ public class RegistroProducto extends VentanaBase {
         panelCentral.setPreferredSize(new Dimension(300, 200)); // Ajusta el ancho del panel
 
         btnRegreso = new JButton("REGRESAR");
-        generarBotonRegreso(btnRegreso);
+        btnIngredientes = new JButton("INGREDIENTES");
+        generarBotonesDeAbajo(btnRegreso,btnIngredientes);
+        
+        
         
         btnAñadir = new JButton("AÑADIR");
         generarBotonAñadir(btnAñadir);
@@ -223,21 +239,30 @@ public class RegistroProducto extends VentanaBase {
         return panel;
     }
     /**
-     * Metodo necesario para la generacion del boton de regreso
+     * Metodo necesario para la generacion del boton de regreso e ingredientes
      * @param boton 
      */
-    private void generarBotonRegreso(JButton boton) {
+    private void generarBotonesDeAbajo(JButton regreso, JButton ingredientes) {
         JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
-        boton.setPreferredSize(new Dimension(125, 70));
-        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+        regreso.setPreferredSize(new Dimension(125, 70));
+        ingredientes.setPreferredSize(new Dimension(125, 70));
+        regreso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonSalirMouseClicked(evt);
             }
         });
-        boton.revalidate();
-        boton.repaint();
-        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panelSur.add(boton);
+        ingredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonIngredientesMouseClicked(evt);
+            }
+        });
+        regreso.revalidate();
+        regreso.repaint();
+        ingredientes.revalidate();
+        ingredientes.repaint();
+        panelSur.setLayout(new BorderLayout());
+        panelSur.add(regreso, BorderLayout.WEST);
+        panelSur.add(ingredientes, BorderLayout.EAST);
         panelSur.revalidate();
         panelSur.repaint();
     }

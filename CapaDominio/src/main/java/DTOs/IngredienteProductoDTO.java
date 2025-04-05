@@ -4,6 +4,8 @@
  */
 package DTOs;
 
+import Enums.Unidad;
+
 /**
  *
  * @author rodri
@@ -11,17 +13,17 @@ package DTOs;
 public class IngredienteProductoDTO {
     
     private String cantidad;    
-    private String nombreProducto;
-    private String nombreIngrediente;    
-    private String unidadMedida;
+    private String producto;
+    private String ingrediente;    
+    private Unidad unidadMedida;
 
     public IngredienteProductoDTO() {
     }
 
-    public IngredienteProductoDTO(String cantidad, String nombreProducto, String nombreIngrediente, String unidadMedida) {
+    public IngredienteProductoDTO(String cantidad, String nombreProducto, String nombreIngrediente, Unidad unidadMedida) {
         this.cantidad = cantidad;
-        this.nombreProducto = nombreProducto;
-        this.nombreIngrediente = nombreIngrediente;
+        this.producto = nombreProducto;
+        this.ingrediente = nombreIngrediente;
         this.unidadMedida = unidadMedida;
     }
 
@@ -33,27 +35,27 @@ public class IngredienteProductoDTO {
         this.cantidad = cantidad;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getProducto() {
+        return producto;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setProducto(String producto) {
+        this.producto = producto;
     }
 
-    public String getNombreIngrediente() {
-        return nombreIngrediente;
+    public String getIngrediente() {
+        return ingrediente;
     }
 
-    public void setNombreIngrediente(String nombreIngrediente) {
-        this.nombreIngrediente = nombreIngrediente;
+    public void setIngrediente(String ingrediente) {
+        this.ingrediente = ingrediente;
     }
 
-    public String getUnidadMedida() {
+    public Unidad getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
+    public void setUnidadMedida(Unidad unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
     

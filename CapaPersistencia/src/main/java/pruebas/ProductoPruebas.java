@@ -50,11 +50,11 @@ public class ProductoPruebas {
         List<Producto> productoBuscarTipo = productoDAO.buscarPorTipo(Tipo.Bebida);
         System.out.println(productoBuscarTipo);
         
-//      Actualizar producto
-        productoBuscar.setPrecio(200.00);
-        productoBuscar.setEstado(Boolean.FALSE);
-        Boolean resultado = productoDAO.actualizarProducto(productoBuscar.getNombre(), productoBuscar);
-            System.out.println(resultado);
+////      Actualizar producto
+//        productoBuscar.setPrecio(200.00);
+//        productoBuscar.setEstado(Boolean.FALSE);
+//        Boolean resultado = productoDAO.actualizarProducto(productoBuscar.getNombre(), productoBuscar);
+//            System.out.println(resultado);
         
 //      Buscar Todos
         List<Producto> todosProductos = productoDAO.buscarTodos();

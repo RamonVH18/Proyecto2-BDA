@@ -99,4 +99,9 @@ public class ProductoBO implements IProductoBO{
             throw new ProductoBOException("Error al buscar producto " + ex.getMessage());
         }
     }
+
+    @Override
+    public ProductoDTO validarProducto(String nombre, String precio, Tipo tipo) throws ProductoBOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

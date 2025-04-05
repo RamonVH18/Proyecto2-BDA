@@ -5,8 +5,6 @@
 package DTOs;
 
 import Enums.Tipo;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
