@@ -19,7 +19,7 @@ public class IngredientePruebas {
     
     
     public static void main(String[] args) throws IngredienteException{
-        IIngredienteDAO ingredienteDAO = new IngredienteDAO();
+        IIngredienteDAO ingredienteDAO = IngredienteDAO.getInstance();
 //        Ingrediente ingrediente1 = new Ingrediente("Miel", Unidad.MILILITRO, 200.00);
 //        Ingrediente ingrediente2 = new Ingrediente("Carne De Toro", Unidad.PIEZA, 80.00);
 //        

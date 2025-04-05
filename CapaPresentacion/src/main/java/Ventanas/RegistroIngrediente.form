@@ -24,20 +24,28 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTextFieldCantidad" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldUnidad" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelUnidad" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldNombre" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="224" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
               <Component id="btnRegreso" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldCantidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldUnidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelUnidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNombre" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                      <Component id="btnAñadir" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="164" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,7 +64,9 @@
               <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jTextFieldCantidad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnAñadir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Component id="btnRegreso" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -94,6 +104,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnRegreso">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnA&#xf1;adir">
       <Properties>
         <Property name="text" type="java.lang.String" value="jButton1"/>
       </Properties>

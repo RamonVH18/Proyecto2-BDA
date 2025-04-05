@@ -20,8 +20,21 @@ import javax.persistence.NonUniqueResultException;
  * @author Ramon Valencia
  */
 public class IngredienteDAO implements IIngredienteDAO {
-
+    
+    private static IngredienteDAO instanceDAO;
+    
     EntityManager em = Conexion.crearConexion();
+
+    private IngredienteDAO() {
+    }
+    
+    public static IngredienteDAO getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new IngredienteDAO();
+        }
+        return instanceDAO;
+    }
+    
     /**
      * Metodo encargado de registrar un ingrediente nuevo
      * @param ingrediente
@@ -83,7 +96,7 @@ public class IngredienteDAO implements IIngredienteDAO {
                     .setParameter("unidad", unidad)
                     .getSingleResult();
         } catch (NoResultException e) {
-            throw new IngredienteException("No se encontro un ingrediente con el nombre: " + e.getMessage());
+            return null;
         } catch (NonUniqueResultException e) {
             throw new IngredienteException("Más de un ingrediente con el nombre: " + e.getMessage());
         } catch (Exception e) {

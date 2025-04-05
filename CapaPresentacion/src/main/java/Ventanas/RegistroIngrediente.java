@@ -4,16 +4,22 @@
  */
 package Ventanas;
 
+import BOs.IngredienteBO;
 import Control.ControlDeNavegacion;
 import Control.IControl;
+import Exceptions.IngredienteBOException;
+import interfaces.IIngredienteBO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +31,7 @@ import javax.swing.SwingConstants;
 public class RegistroIngrediente extends VentanaBase {
 
     private Control.ControlDeNavegacion navegacion;
+    private IIngredienteBO instanceBO;
 
     /**
      * Creates new form RegistroIngrediente
@@ -32,6 +39,7 @@ public class RegistroIngrediente extends VentanaBase {
     public RegistroIngrediente(IControl control) {
         super(control, "Registro Ingrediente");
         navegacion = ControlDeNavegacion.getInstance();
+        instanceBO = IngredienteBO.getInstance();
         generarRegistroIngrediente();
 
     }
@@ -52,6 +60,7 @@ public class RegistroIngrediente extends VentanaBase {
         jLabelCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
         btnRegreso = new javax.swing.JButton();
+        btnAñadir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,23 +78,30 @@ public class RegistroIngrediente extends VentanaBase {
 
         btnRegreso.setText("jButton1");
 
+        btnAñadir.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCantidad)
-                    .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelUnidad)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNombre))
-                .addContainerGap(224, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(btnRegreso)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCantidad)
+                            .addComponent(jTextFieldUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelUnidad)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNombre)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(btnAñadir)))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +118,9 @@ public class RegistroIngrediente extends VentanaBase {
                 .addComponent(jLabelCantidad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAñadir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btnRegreso))
         );
 
@@ -118,8 +136,19 @@ public class RegistroIngrediente extends VentanaBase {
         navegacion.abrirVentana("Menu Ingredientes");
         navegacion.cerrarVentana("Registro Ingrediente");
     }
+    
+    private void botonAñadirMouseClicked(MouseEvent evt) {
+        try {
+            instanceBO.registrarIngrediente(jTextFieldNombre.getText(), jTextFieldUnidad.getText(), jTextFieldCantidad.getText());
+            
+            JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente", "Ingrediente", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnRegreso;
     private javax.swing.JLabel jLabelCantidad;
     private javax.swing.JLabel jLabelNombre;
@@ -132,22 +161,15 @@ public class RegistroIngrediente extends VentanaBase {
      * Metodo para generar la ventana del registro de ingredientes
      */
     private void generarRegistroIngrediente() {
-        JPanel panelContenedor = new JPanel();
-        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));
-
-        // Panel de margen para centrar
-        JPanel espacioIzquierdo = new JPanel();
-        espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
-
-        JPanel espacioDerecho = new JPanel();
-        espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
-
         JPanel panelCentral = new JPanel();
         panelCentral.setLayout(new GridLayout(0, 1, 20, 20));
         panelCentral.setPreferredSize(new Dimension(300, 200)); // Ajusta el ancho del panel
 
         btnRegreso = new JButton("REGRESAR");
         generarBotonRegreso(btnRegreso);
+        
+        btnAñadir = new JButton("AÑADIR");
+        generarBotonAñadir(btnAñadir);
 
         jLabelNombre = new JLabel("Nombre:");
         jTextFieldNombre = new JTextField();
@@ -159,12 +181,9 @@ public class RegistroIngrediente extends VentanaBase {
         panelCentral.add(generacionPanel(jLabelNombre, jTextFieldNombre));
         panelCentral.add(generacionPanel(jLabelUnidad, jTextFieldUnidad));
         panelCentral.add(generacionPanel(jLabelCantidad, jTextFieldCantidad));
-
-        panelContenedor.add(espacioIzquierdo);
-        panelContenedor.add(panelCentral);
-        panelContenedor.add(espacioDerecho);
+        panelCentral.add(btnAñadir);
         
-        add(panelContenedor, BorderLayout.CENTER);
+        generarPanelContenedor(panelCentral);
 
         revalidate();
         repaint();
@@ -206,5 +225,32 @@ public class RegistroIngrediente extends VentanaBase {
         panelSur.add(boton);
         panelSur.revalidate();
         panelSur.repaint();
+    }
+    
+    private void generarBotonAñadir(JButton boton) {
+        boton.setPreferredSize(new Dimension(75, 40));
+        boton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                botonAñadirMouseClicked(evt);
+            }
+        });
+    }
+    
+    private void generarPanelContenedor(JPanel panelCentral) {
+        JPanel panelContenedor = new JPanel();
+        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.X_AXIS));
+        
+        // Panel de margen para centrar
+        JPanel espacioIzquierdo = new JPanel();
+        espacioIzquierdo.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+
+        JPanel espacioDerecho = new JPanel();
+        espacioDerecho.setPreferredSize(new Dimension(100, 1)); // Ajusta el ancho del margen
+        
+        panelContenedor.add(espacioIzquierdo);
+        panelContenedor.add(panelCentral);
+        panelContenedor.add(espacioDerecho);
+        
+        add(panelContenedor, BorderLayout.CENTER);
     }
 }

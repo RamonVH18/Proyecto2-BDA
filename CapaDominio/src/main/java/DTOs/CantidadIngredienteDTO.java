@@ -4,6 +4,8 @@
  */
 package DTOs;
 
+import Enums.Unidad;
+
 /**
  * DTO encargado de guardar la info de cuanto material de un ingrediente se ocupa en un prodcuto en especifico
  * Es igual que IngredienteDTO sin embargo este DTO se ocupara en otras partes
@@ -17,7 +19,7 @@ public class CantidadIngredienteDTO {
     /**
      * Atributo encargado de guardar la unidad de medida en la que se mide el ingrediente
      */
-    private String unidadMedida;
+    private Unidad unidadMedida;
     /**
      * Atributo encargado de guardar la cantidad que se va usar en ese producto en especifico
      */
@@ -33,7 +35,7 @@ public class CantidadIngredienteDTO {
      * @param unidadMedida
      * @param cantidadUsada 
      */
-    public CantidadIngredienteDTO(String nombre, String unidadMedida, Double cantidadUsada) {
+    public CantidadIngredienteDTO(String nombre, Unidad unidadMedida, Double cantidadUsada) {
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
         this.cantidadUsada = cantidadUsada;
@@ -49,11 +51,11 @@ public class CantidadIngredienteDTO {
         this.nombre = nombre;
     }
 
-    public String getUnidadMedida() {
+    public Unidad getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
+    public void setUnidadMedida(Unidad unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
