@@ -20,9 +20,9 @@ public class ClienteFrecuenteBOPruebas {
     public static void main(String[] args) {
         ClienteFrecuenteBO clienteBO = ClienteFrecuenteBO.getInstanceBO();
 
-        String nombre = "Rodrigogogo";
-        String telefono = "6621234567";
-        String correo = "rodriClassic@gmail.com";
+        String nombre = "Daniel Miramontes Iribe";
+        String telefono = "6621234557";
+        String correo = "dani@gmail.com";
 
         try {
             NuevoClienteFrecuenteDTO clienteRegistrado = clienteBO.registrarClienteFrecuente(nombre, telefono, correo);

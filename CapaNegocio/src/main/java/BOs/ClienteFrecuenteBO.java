@@ -67,6 +67,10 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
             throw new ClienteFrecuenteBOException("El nombre no puede superar los 100 caracteres.");
         }
 
+        if (!esNombreValido(nombreCompleto)) {
+            throw new ClienteFrecuenteBOException("El nombre solo puede contener letras y de 2 a 4 palabras (nombre, apellido paterno y opcional materno).");
+        }
+
         if (telefono == null || telefono.isBlank()) {
             throw new ClienteFrecuenteBOException("El numero de telefono no puede estar vacio");
         }
@@ -81,6 +85,10 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
 
         if (correo.length() > 100) {
             throw new ClienteFrecuenteBOException("El correo no puede superar los 100 caracteres.");
+        }
+
+        if (!esCorreoValido(correo)) {
+            throw new ClienteFrecuenteBOException("El correo no tiene un formato valido.");
         }
 
         try {
@@ -112,6 +120,29 @@ public class ClienteFrecuenteBO implements IClienteFrecuenteBO {
         } catch (ClienteFrecuenteDAOException e) {
             throw new ClienteFrecuenteBOException("Ocurrio un error durante el registro del cliente: " + e.getMessage());
         }
+    }
+
+    /**
+     * Valida que el correo tenga un formato valido.
+     *
+     * @param correo El correo a validar.
+     * @return true si el correo tiene un formato valido, false en caso
+     * contrario.
+     */
+    private boolean esCorreoValido(String correo) {
+        String regexCorreo = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return correo.matches(regexCorreo);
+    }
+
+    /**
+     * Valida que el nombre completo tenga entre 2 y 4 palabras, solo letras
+     * (incluyendo tildes y ñ), con espacios entre ellas.
+     *
+     * @param nombre El nombre completo a validar.
+     * @return true si es valido, false en caso contrario.
+     */
+    private boolean esNombreValido(String nombre) {
+        return nombre.trim().matches("^([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,})(\\s[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,}){1,3}$");
     }
 
 }
