@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  * @author Ramon Valencia
  */
 public class MenuAdministrador extends VentanaBase {
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
     
     public MenuAdministrador(IControl control) {
         super(control, "Menu de Administrador");

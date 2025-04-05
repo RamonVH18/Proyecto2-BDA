@@ -9,7 +9,6 @@ import Control.ControlDeNavegacion;
 import Control.IControl;
 import DTOs.CantidadIngredienteDTO;
 import Enums.Unidad;
-import Exceptions.IngredienteBOException;
 import interfaces.IIngredienteBO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VerIngredientes extends VentanaBase {
 
-    private ControlDeNavegacion navegacion;
+    private IControl navegacion;
     private IIngredienteBO instanceBO;
     private JTable tablaIngredientes;
     private CantidadIngredienteDTO ingredienteSeleccionado;

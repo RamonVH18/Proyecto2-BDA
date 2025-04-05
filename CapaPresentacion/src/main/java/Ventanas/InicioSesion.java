@@ -7,10 +7,8 @@ package Ventanas;
 import Control.ControlDeNavegacion;
 import Control.IControl;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -20,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class InicioSesion extends VentanaBase {
     private JPanel panelCentral;
-    private ControlDeNavegacion navegacion;
+    private IControl navegacion;
     /**
      * Creates new form InicioSesion
      */

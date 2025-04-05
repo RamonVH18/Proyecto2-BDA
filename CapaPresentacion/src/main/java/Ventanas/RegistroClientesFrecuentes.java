@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
  */
 public class RegistroClientesFrecuentes extends VentanaBase {
 
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
     private IClienteFrecuenteBO instanceBO;
 
     /**

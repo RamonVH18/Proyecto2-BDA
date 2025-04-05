@@ -23,7 +23,7 @@ import java.awt.Insets;
  */
 public class MenuClientesFrecuentes extends VentanaBase {
 
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
 
     /**
      * Creates new form MenuClientesFrecuentes

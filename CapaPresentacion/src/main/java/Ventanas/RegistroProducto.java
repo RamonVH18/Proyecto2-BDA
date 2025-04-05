@@ -11,7 +11,6 @@ import Enums.Tipo;
 import interfaces.IProductoBO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -31,7 +30,7 @@ import javax.swing.SwingConstants;
  */
 public class RegistroProducto extends VentanaBase {
 
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
     private IProductoBO instanceBO;
 
     /**

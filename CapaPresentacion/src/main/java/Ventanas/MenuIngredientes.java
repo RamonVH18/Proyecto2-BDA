@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  * @author Ramon Valencia
  */
 public class MenuIngredientes extends VentanaBase {
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
     /**
      * Creates new form MenuIngredientes
      */

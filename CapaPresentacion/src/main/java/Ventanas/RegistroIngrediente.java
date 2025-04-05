@@ -7,9 +7,7 @@ package Ventanas;
 import BOs.IngredienteBO;
 import Control.ControlDeNavegacion;
 import Control.IControl;
-import Enums.Tipo;
 import Enums.Unidad;
-import Exceptions.IngredienteBOException;
 import interfaces.IIngredienteBO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -33,7 +31,7 @@ import javax.swing.SwingConstants;
  */
 public class RegistroIngrediente extends VentanaBase {
 
-    private Control.ControlDeNavegacion navegacion;
+    private IControl navegacion;
     private IIngredienteBO instanceBO;
 
     /**

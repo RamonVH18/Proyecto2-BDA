@@ -4,19 +4,25 @@
  */
 package Ventanas;
 
+import Control.ControlDeNavegacion;
 import Control.IControl;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Ramon Valencia
  */
 public class MenuComandas extends VentanaBase {
-
+    private IControl navegacion;
     /**
      * Creates new form MenuComandas
      */
     public MenuComandas(IControl control) {
         super(control, "Menu de Comandas");
+        navegacion = ControlDeNavegacion.getInstance();
     }
 
     /**
@@ -48,7 +54,36 @@ public class MenuComandas extends VentanaBase {
     /**
      * @param args the command line arguments
      */
+    /**
+     * Metodo que detecta cuando el boton de regreso es presionado
+     * @param evt 
+     */
+    private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        navegacion.registrarVentana("Inicio Sesion", new InicioSesion(control));
+        navegacion.abrirVentana("Inicio Sesion");
+        navegacion.cerrarVentana("Menu Administrador");
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    /**
+     * Metodo necesario para la generacion del boton de regreso
+     * @param boton 
+     */
+    private void generarBotonRegreso(JButton boton) {
+        JPanel panelSur = (JPanel) this.getContentPane().getComponent(0);
+        boton.setPreferredSize(new Dimension(125, 70));
+        boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonSalirMouseClicked(evt);
+            }
+        });
+        boton.revalidate();
+        boton.repaint();
+        panelSur.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelSur.add(boton);
+        panelSur.revalidate();
+        panelSur.repaint();
+    }
 }
